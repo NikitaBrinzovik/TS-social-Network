@@ -10,9 +10,10 @@ export function AccordionBody(props: AccordionBodyPropsType) {
     if (props.collapsed === true) {
         return (
             <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
+                <li>css</li>
+                <li>HTML</li>
+                <li>JS</li>
+                <li>TS</li>
             </ul>)
     } else { return <></>
     }

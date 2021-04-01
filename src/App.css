@@ -1,3 +1,19 @@
-ul li{
-  list-style-type: lower-greek;
+.app-wrapper {
+  background-color:  #f5e6e1;
+  display: grid;
+  /* width: fit-content; */
+  margin: 0 auto;
+
+  grid-template-areas:
+    "h h"
+    "n c";
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 6px;
+}
+
+.app-wrapper-content {
+  grid-area: c;
+  background-color: #ddccae ;
+
 }

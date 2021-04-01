@@ -1,0 +1,9 @@
+.mainContent {
+    grid-area: c;
+    background-color: #ddccae;
+}
+
+
+.mainContent img {
+    max-height: 300px;
+}

@@ -1,0 +1,21 @@
+.postBlock {
+    padding: 10px;
+}
+
+.mainContent img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+/*.posts {*/
+/*    margin-top: 10px;*/
+/*}*/
+
+.postBlock h3 {
+    margin-top: -1px;
+}
+
+.postBlock h4 {
+    margin-top: -1px;
+    margin-bottom: 3px;
+}

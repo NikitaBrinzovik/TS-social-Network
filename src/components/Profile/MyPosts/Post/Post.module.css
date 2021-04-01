@@ -1,0 +1,14 @@
+
+.item {
+    color: #362828;
+    display: table;
+}
+
+.item img {
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 30px;
+}
+/*.likesStyle {*/
+/*    display: table-cell;*/
+/*}*/
