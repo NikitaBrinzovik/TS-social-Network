@@ -13,7 +13,7 @@ type MessagePropsType = {
 export function Message(props: MessagePropsType) {
     return (
         <div className={s.message}>
-            <NavLink to={'/Message-from-' + props.name + '/' + props.id} >{props.message}</NavLink>
+            <NavLink to={`${"Message-from-"}${props.name+'/'}${props.id}`} >{props.message}</NavLink>
         </div>
     )
 }
