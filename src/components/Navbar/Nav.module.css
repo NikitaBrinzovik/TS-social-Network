@@ -10,15 +10,15 @@
     text-decoration: none;
 }
 
-/*.item a.activeLink,*/
-/*.friends a.activeLink {*/
-/*    color: gold;*/
-/*}*/
-
-.item.active a{
+.item a.activeLink,
+.friends a.activeLink {
     color: gold;
-    /*border: 2px solid;*/
+
+    /*background:#753840 ;*/
+    /*border: 1px solid;*/
+    /*padding: 2px;*/
 }
+
 
 /*.friends{*/
 /*    padding-top: 20px;*/

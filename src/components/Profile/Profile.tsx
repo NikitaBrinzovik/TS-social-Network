@@ -1,16 +1,18 @@
 import React from 'react'
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 type ProfilePropsType = {
-
+    message: string
+    numb: number
+    id: number
 }
 
-export function Profile(props:ProfilePropsType) {
+export function Profile() {
     return (
         <div className={s.mainContent}>
-            <img src='https://to-name.ru/images/historical-events/white-movement.jpg'/>
-            {/*<ProfileInfo/>*/}
+            <ProfileInfo />
             <MyPosts />
         </div>
     )

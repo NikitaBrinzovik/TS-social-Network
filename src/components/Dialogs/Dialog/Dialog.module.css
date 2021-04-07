@@ -1,0 +1,13 @@
+.dialog a{
+    color: black;
+    text-decoration: none;
+}
+
+.dialog a:hover{
+    color: firebrick;
+}
+
+.dialog div {
+    text-decoration: none;
+    color: aqua;
+}

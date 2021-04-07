@@ -1,0 +1,46 @@
+.allContent {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.allContent img {
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 50%;
+    border: 2px solid brown;
+
+}
+
+.allContent .newMessages {
+    padding: 10px;
+}
+
+.allContent .newMessages button {
+    margin-left: 5px;
+
+}
+
+.allContent .friends {
+    padding: 10px;
+    text-decoration: none;
+    width: 40%;
+}
+
+/*.allContent .friends a {*/
+/*    text-decoration: none;*/
+/*    color: brown;*/
+/*}*/
+
+.allContent .messages {
+    color: #fff;
+    padding: 10px;
+}
+
+/*.allContent .messages a {*/
+/*    text-decoration: none;*/
+/*    color: #282c34;*/
+/*}*/
+
+.allContent .avatar img {
+    max-height: 80px;
+}
