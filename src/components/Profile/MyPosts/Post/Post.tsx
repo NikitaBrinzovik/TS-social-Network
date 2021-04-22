@@ -3,9 +3,10 @@ import { Likes } from './Likes/Likes';
 import s from './Post.module.css'
 
 type PostPropsType = {
+    //posts: Array<PostsType>
     message: string
     numb: number
-    id:number
+    id: number
 }
 
 export function Post(props: PostPropsType) {

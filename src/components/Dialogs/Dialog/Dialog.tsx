@@ -6,6 +6,7 @@ import {NavLink} from 'react-router-dom';
 type DialogPropsType = {
     name: string
     id: number
+    //dialogs: Array<DialogsType>
 }
 
 export function Dialog(props: DialogPropsType) {

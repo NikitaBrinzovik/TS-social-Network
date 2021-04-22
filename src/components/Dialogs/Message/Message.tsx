@@ -1,6 +1,7 @@
 import s from "./Message.module.css"
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {MessagesType} from "../../../redux/state";
 
 
 
@@ -8,6 +9,7 @@ type MessagePropsType = {
     message: string
     id: number
     name:string
+    //messages: Array<MessagesType>
 }
 
 export function Message(props: MessagePropsType) {
