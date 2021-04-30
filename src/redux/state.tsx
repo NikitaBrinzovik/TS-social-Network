@@ -1,7 +1,3 @@
-
-import {rerenderEntireTree} from "../render";
-
-
 export type MessagesType = {
     name: string
     message: string
@@ -35,7 +31,8 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-export let state:RootStateType = {
+
+export let state: RootStateType = {
 
     profilePage: {
         messageForNewPost: "",
@@ -70,34 +67,43 @@ export let state:RootStateType = {
 
 export const addPost = (postText: string) => {
     //alert(newPostElement.current?.value);
-    const newPost:PostsType = {
+    const newPost: PostsType = {
         id: new Date().getTime(),
         message: postText,
         likes: 0,
     }
     state.profilePage.posts.push(newPost);
     state.profilePage.messageForNewPost = ('');
-    rerenderEntireTree(state)
+    rerenderTree(state)
 }
 export const changeNewText = (newText: string) => {
+    debugger
     state.profilePage.messageForNewPost = newText;
-    rerenderEntireTree(state)
+    rerenderTree(state)
 }
 
 export const addMessage = (messageText: string) => {
 
-    const newMessage:MessagesType = {
+    const newMessage: MessagesType = {
         id: new Date().getTime(),
         message: messageText,
         name: "New",
     }
     state.dialogsPage.messages.push(newMessage);
     state.dialogsPage.messageForNewMessage = '';
-    rerenderEntireTree(state)
+    rerenderTree(state)
 }
 export const newMessage = (newText: string) => {
     state.dialogsPage.messageForNewMessage = newText;
-    rerenderEntireTree(state)
+    rerenderTree(state)
+}
+
+export let rerenderTree = (state: RootStateType) => {
+    console.log('jjjj')
+}
+
+export const  subscriber = (observer: (state: RootStateType)=> void) => {
+    rerenderTree = observer;
 }
 
 

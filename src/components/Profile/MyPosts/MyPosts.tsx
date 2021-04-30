@@ -20,6 +20,7 @@ export function MyPosts(props: MyPostsPropsType) {
     }
 
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        debugger
         props.changeNewTextCallback(e.currentTarget.value);
     }
 
