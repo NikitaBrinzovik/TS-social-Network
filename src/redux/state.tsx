@@ -31,79 +31,104 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
+export type StoreType = {
+    _state: RootStateType
+    addPost: (postText: string) => void
+    changeNewText: (newText: string) => void
+    addMessage: (messageText: string) => void
+    newMessage: (newText: string) => void
+    rerenderTree: (state: RootStateType) => void
+    subscriber: (observer: (state: RootStateType)=> void) => void
+    getState: () => RootStateType
+}
+export let store: StoreType = {
+    _state: {
 
-export let state: RootStateType = {
-
-    profilePage: {
-        messageForNewPost: "",
-        posts: [
-            {message: 'Hey-Hey', likes: 3, id: 1},
-            {message: 'Hey-Hoy', likes: 5, id: 2}
-        ]
+        profilePage: {
+            messageForNewPost: "",
+            posts: [
+                {message: 'Hey-Hey', likes: 3, id: 1},
+                {message: 'Hey-Hoy', likes: 5, id: 2}
+            ]
+        },
+        dialogsPage: {
+            messageForNewMessage: "",
+            messages: [
+                {name: "Nikita", message: "Hey", id: 1},
+                {name: "Jora", message: "Hoy", id: 2},
+                {name: "Polina", message: "Lets", id: 3},
+                {name: "Ivan", message: "go! Yes, lets go to kill a good people, comrrrrade!", id: 4},
+                {name: "Roma", message: "Oh no!", id: 5},
+                {name: "Volodzzzia", message: "Oh Yes!", id: 6},
+                {name: "Ilya", message: "Oh Yes!", id: 7},],
+            dialogs: [
+                {name: "Nikita", id: 1},
+                {name: "Jora", id: 2},
+                {name: "Polina", id: 3},
+                {name: "Ivan", id: 4},
+                {name: "Roma", id: 5},
+                {name: "Volodzzzia", id: 6},
+                {name: "Ilya", id: 7},
+            ],
+        },
+        sidebar: {},
     },
-    dialogsPage: {
-        messageForNewMessage: "",
-        messages: [
-            {name: "Nikita", message: "Hey", id: 1},
-            {name: "Jora", message: "Hoy", id: 2},
-            {name: "Polina", message: "Lets", id: 3},
-            {name: "Ivan", message: "go! Yes, lets go to kill a good people, comrrrrade!", id: 4},
-            {name: "Roma", message: "Oh no!", id: 5},
-            {name: "Volodzzzia", message: "Oh Yes!", id: 6},
-            {name: "Ilya", message: "Oh Yes!", id: 7},],
-        dialogs: [
-            {name: "Nikita", id: 1},
-            {name: "Jora", id: 2},
-            {name: "Polina", id: 3},
-            {name: "Ivan", id: 4},
-            {name: "Roma", id: 5},
-            {name: "Volodzzzia", id: 6},
-            {name: "Ilya", id: 7},
-        ],
+    getState() {
+        return this._state
     },
-    sidebar: {},
-}
 
+    addPost(postText: string) {
+        //alert(newPostElement.current?.value);
+        const newPost: PostsType = {
+            id: new Date().getTime(),
+            message: postText,
+            likes: 0,
+        }
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.messageForNewPost = ('');
+        this.rerenderTree(store._state)
+    },
+    changeNewText(newText: string) {
+        debugger
+        this._state.profilePage.messageForNewPost = newText;
+        this.rerenderTree(store._state)
+    },
+    addMessage(messageText: string) {
 
-export const addPost = (postText: string) => {
-    //alert(newPostElement.current?.value);
-    const newPost: PostsType = {
-        id: new Date().getTime(),
-        message: postText,
-        likes: 0,
+        const newMessage: MessagesType = {
+            id: new Date().getTime(),
+            message: messageText,
+            name: "New",
+        }
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.messageForNewMessage = '';
+        this.rerenderTree(store._state)
+    },
+    newMessage(newText: string) {
+        this._state.dialogsPage.messageForNewMessage = newText;
+        this.rerenderTree(store._state)
+    },
+
+    rerenderTree(state: RootStateType) {
+        console.log('jjjj')
+    },
+     subscriber(observer) {
+         this.rerenderTree = observer;
     }
-    state.profilePage.posts.push(newPost);
-    state.profilePage.messageForNewPost = ('');
-    rerenderTree(state)
-}
-export const changeNewText = (newText: string) => {
-    debugger
-    state.profilePage.messageForNewPost = newText;
-    rerenderTree(state)
+
 }
 
-export const addMessage = (messageText: string) => {
 
-    const newMessage: MessagesType = {
-        id: new Date().getTime(),
-        message: messageText,
-        name: "New",
-    }
-    state.dialogsPage.messages.push(newMessage);
-    state.dialogsPage.messageForNewMessage = '';
-    rerenderTree(state)
-}
-export const newMessage = (newText: string) => {
-    state.dialogsPage.messageForNewMessage = newText;
-    rerenderTree(state)
-}
 
-export let rerenderTree = (state: RootStateType) => {
-    console.log('jjjj')
-}
 
-export const  subscriber = (observer: (state: RootStateType)=> void) => {
-    rerenderTree = observer;
-}
+
+
+
+
+
+
+
+
+
 
 
