@@ -35,7 +35,7 @@ const App: React.FC<AppPropsType> = (props) => {
                                profilePage={props.state.profilePage}
                                // addPostCallback={props.store.addPost.bind(props.store)}
                                // changeNewTextCallback={props.store.changeNewText.bind(props.store)}
-                               message={props.state.profilePage.messageForNewPost}
+                               message={props.state.profilePage.newPostText}
                            />}/>
                 <Route path='/Dialogs'
                        render={(d) =>
@@ -44,7 +44,7 @@ const App: React.FC<AppPropsType> = (props) => {
                                dispatch={props.dispatch}
                                // addMessageCallback={props.store.addMessage.bind(props.store)}
                                // changeNewMessageCallback={props.store.newMessage.bind(props.store)}
-                               message={props.state.dialogsPage.messageForNewMessage}
+                               message={props.state.dialogsPage.newMessageText}
                            />}/>
             </div>
 

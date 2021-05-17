@@ -8,7 +8,7 @@ export type DialogsType = {
     name: string
 }
 export type DialogsPageType = {
-    messageForNewMessage: string
+    newMessageText: string
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
 }
@@ -19,7 +19,7 @@ export type PostsType = {
     id: number
 }
 export type ProfilePageType = {
-    messageForNewPost: string
+    newPostText: string
     posts: Array<PostsType>
 }
 
@@ -69,43 +69,20 @@ export type ActionTypes = ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof sendMessageActionCreator> |
     ReturnType<typeof newTextChangeHandlerActionCreator>
 
-export const addPostActionCreator = (postText: string) => {
-    return {
-        type: 'ADD-POST' as const,
-        postText: postText
-    }
-}
-export const newTextChangeHandleActionCreator = (newText: string) => {
-    return {
-        type: "CHANGE-NEW-TEXT",//либо тут написать
-        newText: newText
-    } as const //либо можно тут написать
-}
-export const sendMessageActionCreator = (messageText: string) => {
-    return {
-        type: "ADD-MESSAGE" as const,
-        messageText: messageText
-    }
-}
-export const newTextChangeHandlerActionCreator = (newText: string) => {
-    return {
-        type: "NEW-MESSAGE-TEXT" as const,
-        newText: newText
-    }
-}
-
 export let store: StoreType = {
     _state: {
 
         profilePage: {
-            messageForNewPost: "",
+            newPostText: "",
+
             posts: [
                 {message: 'Hey-Hey', likes: 3, id: 1},
                 {message: 'Hey-Hoy', likes: 5, id: 2}
             ]
         },
         dialogsPage: {
-            messageForNewMessage: "",
+            newMessageText: "",
+
             messages: [
                 {name: "Nikita", message: "Hey", id: 1},
                 {name: "Jora", message: "Hoy", id: 2},
@@ -175,10 +152,10 @@ export let store: StoreType = {
                 likes: 0,
             }
             this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.messageForNewPost = ('');
+            this._state.profilePage.newPostText = ('');
             this.rerenderTree(store._state)
         } else if (action.type === "CHANGE-NEW-TEXT") {
-            this._state.profilePage.messageForNewPost = action.newText;
+            this._state.profilePage.newPostText = action.newText;
             this.rerenderTree(store._state)
         } else if (action.type === "ADD-MESSAGE") {
             const newMessage: MessagesType = {
@@ -187,15 +164,41 @@ export let store: StoreType = {
                 name: "New",
             }
             this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.messageForNewMessage = '';
+            this._state.dialogsPage.newMessageText = '';
             this.rerenderTree(store._state)
         } else if (action.type === "NEW-MESSAGE-TEXT") {
-            this._state.dialogsPage.messageForNewMessage = action.newText;
+            this._state.dialogsPage.newMessageText = action.newText;
             this.rerenderTree(store._state)
         }
     }
 
 }
+
+export const addPostActionCreator = (postText: string) => {
+    return {
+        type: 'ADD-POST' as const,
+        postText: postText
+    }
+}
+export const newTextChangeHandleActionCreator = (newText: string) => {
+    return {
+        type: "CHANGE-NEW-TEXT",//либо тут написать
+        newText: newText
+    } as const //либо можно тут написать
+}
+export const sendMessageActionCreator = (messageText: string) => {
+    return {
+        type: "ADD-MESSAGE" as const,
+        messageText: messageText
+    }
+}
+export const newTextChangeHandlerActionCreator = (newText: string) => {
+    return {
+        type: "NEW-MESSAGE-TEXT" as const,
+        newText: newText
+    }
+}
+
 
 
 

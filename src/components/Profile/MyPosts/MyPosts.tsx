@@ -37,7 +37,10 @@ export function MyPosts(props: MyPostsPropsType) {
             {post}
             <div>
                 <h4>new post: </h4>
-                <textarea value={props.message} onChange={newTextChangeHandler}/>
+                <textarea
+                    placeholder={'Write new post here'}
+                    value={props.message}
+                    onChange={newTextChangeHandler}/>
                 <button onClick={addPost}>add post</button>
                 <button>remove post</button>
             </div>

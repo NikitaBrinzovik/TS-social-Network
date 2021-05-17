@@ -41,7 +41,8 @@ export function Dialogs(props: DialogsPropsType) {
             <div className={s.newMessages}>
 
 
-                <textarea value={props.message}
+                <textarea placeholder={'Enter your message'}
+                          value={props.message}
                           onChange={newTextChangeHandler}/>
                 <button onClick={sendMessage}>send</button>
             </div>
@@ -53,6 +54,7 @@ export function Dialogs(props: DialogsPropsType) {
                 {message}
                 {/*<Message name={"Nikita"} message={"Hey"} id={1}/>*/}
             </div>
+
         </div>
     )
 }
