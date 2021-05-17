@@ -5,10 +5,12 @@ import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {StoreType} from "./redux/state";
+import {ActionTypes, RootStateType, StoreType} from "./redux/state";
 
 export type AppPropsType = {
-    store: StoreType
+    // store: StoreType
+    dispatch:  (action: ActionTypes) => void
+    state: RootStateType
     // _state: RootStateType
     // addPostCallback: (postText: string) => void
     // changeNewTextCallback: (newText: string) => void
@@ -16,8 +18,8 @@ export type AppPropsType = {
     // addMessageCallback: (postText: string) => void
 }
 
-const App: React.FC<AppPropsType>= (props) => {
-    const state = props.store.getState();
+const App: React.FC<AppPropsType> = (props) => {
+    // const state = props.store.getState();
     console.log("App is rendering")
     return (
 
@@ -28,17 +30,21 @@ const App: React.FC<AppPropsType>= (props) => {
 
                 <Route path='/Profile'
                        render={(m) =>
-                           <Profile profilePage={state.profilePage}
-                                    addPostCallback={props.store.addPost.bind(props.store)}
-                                    changeNewTextCallback={props.store.changeNewText.bind(props.store)}
-                                    message={state.profilePage.messageForNewPost}
+                           <Profile
+                               dispatch={props.dispatch}
+                               profilePage={props.state.profilePage}
+                               // addPostCallback={props.store.addPost.bind(props.store)}
+                               // changeNewTextCallback={props.store.changeNewText.bind(props.store)}
+                               message={props.state.profilePage.messageForNewPost}
                            />}/>
                 <Route path='/Dialogs'
                        render={(d) =>
-                           <Dialogs dialogsPage={state.dialogsPage}
-                                    addMessageCallback={props.store.addMessage.bind(props.store)}
-                                    changeNewMessageCallback={props.store.newMessage.bind(props.store)}
-                                    message={state.dialogsPage.messageForNewMessage}
+                           <Dialogs
+                               dialogsPage={props.state.dialogsPage}
+                               dispatch={props.dispatch}
+                               // addMessageCallback={props.store.addMessage.bind(props.store)}
+                               // changeNewMessageCallback={props.store.newMessage.bind(props.store)}
+                               message={props.state.dialogsPage.messageForNewMessage}
                            />}/>
             </div>
 

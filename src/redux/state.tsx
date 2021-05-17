@@ -32,32 +32,36 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    addPost: (postText: string) => void
-    changeNewText: (newText: string) => void
-    addMessage: (messageText: string) => void
-    newMessage: (newText: string) => void
+    // addPost: (postText: string) => void
+    // changeNewText: (newText: string) => void
+    // addMessage: (messageText: string) => void
+    // newMessage: (newText: string) => void
     rerenderTree: (state: RootStateType) => void
-    subscriber: (observer: (state: RootStateType)=> void) => void
+    subscriber: (observer: (state: RootStateType) => void) => void
     getState: () => RootStateType
-    dispatch:(action: AddPostActionType | ChangeNewTextActionType |AddMessageActionType | NewMessageActionType) => void
+    dispatch: (action: ActionTypes) => void
 }
 
+
+
 export type AddPostActionType = {
-    type:"ADD-POST"
+    type: "ADD-POST"
     postText: string
 }
 export type ChangeNewTextActionType = {
-    type:"CHANGE-NEW-TEXT"
+    type: "CHANGE-NEW-TEXT"
     newText: string
 }
 export type AddMessageActionType = {
     type: "ADD-MESSAGE"
     messageText: string
 }
-export type NewMessageActionType={
+export type NewMessageActionType = {
     type: "NEW-MESSAGE"
     newText: string
 }
+export type ActionTypes = AddPostActionType | ChangeNewTextActionType | AddMessageActionType | NewMessageActionType
+
 
 export let store: StoreType = {
     _state: {
@@ -99,41 +103,41 @@ export let store: StoreType = {
         this.rerenderTree = observer;
     },
 
-    addPost(postText: string) {
-        const newPost: PostsType = {
-            id: new Date().getTime(),
-            message: postText,
-            likes: 0,
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.messageForNewPost = ('');
-        this.rerenderTree(store._state)
-    },
-    changeNewText(newText: string) {
-        this._state.profilePage.messageForNewPost = newText;
-        this.rerenderTree(store._state)
-    },
-    addMessage(messageText: string) {
-        const newMessage: MessagesType = {
-            id: new Date().getTime(),
-            message: messageText,
-            name: "New",
-        }
-        this._state.dialogsPage.messages.push(newMessage);
-        this._state.dialogsPage.messageForNewMessage = '';
-        this.rerenderTree(store._state)
-    },
-    newMessage(newText: string) {
-        this._state.dialogsPage.messageForNewMessage = newText;
-        this.rerenderTree(store._state)
-    },
+    // addPost(postText: string) {
+    //     const newPost: PostsType = {
+    //         id: new Date().getTime(),
+    //         message: postText,
+    //         likes: 0,
+    //     }
+    //     this._state.profilePage.posts.push(newPost);
+    //     this._state.profilePage.messageForNewPost = ('');
+    //     this.rerenderTree(store._state)
+    // },
+    // changeNewText(newText: string) {
+    //     this._state.profilePage.messageForNewPost = newText;
+    //     this.rerenderTree(store._state)
+    // },
+    // addMessage(messageText: string) {
+    //     const newMessage: MessagesType = {
+    //         id: new Date().getTime(),
+    //         message: messageText,
+    //         name: "New",
+    //     }
+    //     this._state.dialogsPage.messages.push(newMessage);
+    //     this._state.dialogsPage.messageForNewMessage = '';
+    //     this.rerenderTree(store._state)
+    // },
+    // newMessage(newText: string) {
+    //     this._state.dialogsPage.messageForNewMessage = newText;
+    //     this.rerenderTree(store._state)
+    // },
 
     rerenderTree(state: RootStateType) {
         console.log('jjjj')
     },
 
     dispatch(action) {
-        if(action.type === "ADD-POST"){
+        if (action.type=== "ADD-POST") {
             const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: action.postText,
@@ -142,12 +146,10 @@ export let store: StoreType = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.messageForNewPost = ('');
             this.rerenderTree(store._state)
-        }
-        else if(action.type === "CHANGE-NEW-TEXT") {
+        } else if (action.type === "CHANGE-NEW-TEXT") {
             this._state.profilePage.messageForNewPost = action.newText;
             this.rerenderTree(store._state)
-        }
-        else if(action.type === "ADD-MESSAGE") {
+        } else if (action.type === "ADD-MESSAGE") {
             const newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: action.messageText,
@@ -156,8 +158,7 @@ export let store: StoreType = {
             this._state.dialogsPage.messages.push(newMessage);
             this._state.dialogsPage.messageForNewMessage = '';
             this.rerenderTree(store._state)
-        }
-        else if(action.type === "NEW-MESSAGE") {
+        } else if (action.type === "NEW-MESSAGE") {
             this._state.dialogsPage.messageForNewMessage = action.newText;
             this.rerenderTree(store._state)
         }

@@ -13,7 +13,9 @@ export const rerenderEntireTree = () => {
         <React.StrictMode>
             <BrowserRouter>
                 <App
-                    store={store}
+                    // store={store}
+                    state={store.getState()}
+                    dispatch={store.dispatch.bind(store)}
                     // _state={store._state}
                     // addPostCallback={store.addPost}
                     // changeNewTextCallback={store.changeNewText}
