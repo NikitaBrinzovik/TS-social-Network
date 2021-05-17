@@ -1,3 +1,7 @@
+import {addPostActionCreator, newTextChangeHandleActionCreator, profileReducer} from "./Profile-Reducer";
+import {dialogsReducer, newTextChangeHandlerActionCreator, sendMessageActionCreator} from "./Dialogs-Reducer";
+import {sidebarReducer} from "./Sidebar-Reducer";
+
 export type MessagesType = {
     name: string
     message: string
@@ -145,59 +149,63 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === "ADD-POST") {
-            const newPost: PostsType = {
-                id: new Date().getTime(),
-                message: action.postText,
-                likes: 0,
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = ('');
-            this.rerenderTree(store._state)
-        } else if (action.type === "CHANGE-NEW-TEXT") {
-            this._state.profilePage.newPostText = action.newText;
-            this.rerenderTree(store._state)
-        } else if (action.type === "ADD-MESSAGE") {
-            const newMessage: MessagesType = {
-                id: new Date().getTime(),
-                message: action.messageText,
-                name: "New",
-            }
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessageText = '';
-            this.rerenderTree(store._state)
-        } else if (action.type === "NEW-MESSAGE-TEXT") {
-            this._state.dialogsPage.newMessageText = action.newText;
-            this.rerenderTree(store._state)
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+    //     if (action.type === "ADD-POST") {
+    //         const newPost: PostsType = {
+    //             id: new Date().getTime(),
+    //             message: action.postText,
+    //             likes: 0,
+    //         }
+    //         this._state.profilePage.posts.push(newPost);
+    //         this._state.profilePage.newPostText = ('');
+    //         this.rerenderTree(store._state)
+    //     } else if (action.type === "CHANGE-NEW-TEXT") {
+    //         this._state.profilePage.newPostText = action.newText;
+    //         this.rerenderTree(store._state)
+    //     } else if (action.type === "ADD-MESSAGE") {
+    //         const newMessage: MessagesType = {
+    //             id: new Date().getTime(),
+    //             message: action.messageText,
+    //             name: "New",
+    //         }
+    //         this._state.dialogsPage.messages.push(newMessage);
+    //         this._state.dialogsPage.newMessageText = '';
+    //         this.rerenderTree(store._state)
+    //     } else if (action.type === "NEW-MESSAGE-TEXT") {
+    //         this._state.dialogsPage.newMessageText = action.newText;
+    //         this.rerenderTree(store._state)
+    //     }
     }
 
 }
 
-export const addPostActionCreator = (postText: string) => {
-    return {
-        type: 'ADD-POST' as const,
-        postText: postText
-    }
-}
-export const newTextChangeHandleActionCreator = (newText: string) => {
-    return {
-        type: "CHANGE-NEW-TEXT",//либо тут написать
-        newText: newText
-    } as const //либо можно тут написать
-}
-export const sendMessageActionCreator = (messageText: string) => {
-    return {
-        type: "ADD-MESSAGE" as const,
-        messageText: messageText
-    }
-}
-export const newTextChangeHandlerActionCreator = (newText: string) => {
-    return {
-        type: "NEW-MESSAGE-TEXT" as const,
-        newText: newText
-    }
-}
+// export const addPostActionCreator = (postText: string) => {
+//     return {
+//         type: 'ADD-POST' as const,
+//         postText: postText
+//     }
+// }
+// export const newTextChangeHandleActionCreator = (newText: string) => {
+//     return {
+//         type: "CHANGE-NEW-TEXT",//либо тут написать
+//         newText: newText
+//     } as const //либо можно тут написать
+// }
+// export const sendMessageActionCreator = (messageText: string) => {
+//     return {
+//         type: "ADD-MESSAGE" as const,
+//         messageText: messageText
+//     }
+// }
+// export const newTextChangeHandlerActionCreator = (newText: string) => {
+//     return {
+//         type: "NEW-MESSAGE-TEXT" as const,
+//         newText: newText
+//     }
+// }
 
 
 
