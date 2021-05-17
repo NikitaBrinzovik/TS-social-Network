@@ -42,26 +42,57 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
+// const actTypes = {
+//     ADD_POST: 'ADD_POST'
+// }
 
 
-export type AddPostActionType = {
-    type: "ADD-POST"
-    postText: string
-}
-export type ChangeNewTextActionType = {
-    type: "CHANGE-NEW-TEXT"
-    newText: string
-}
-export type AddMessageActionType = {
-    type: "ADD-MESSAGE"
-    messageText: string
-}
-export type NewMessageActionType = {
-    type: "NEW-MESSAGE"
-    newText: string
-}
-export type ActionTypes = AddPostActionType | ChangeNewTextActionType | AddMessageActionType | NewMessageActionType
+// export type AddPostActionType = {
+//     type: "ADD-POST"
+//     postText: string }
+// export type ChangeNewTextActionType = {
+//     type: "CHANGE-NEW-TEXT"
+//     newText: string }
+// export type AddMessageActionType = {
+//     type: "ADD-MESSAGE",
+//     messageText: string}
+// export type NewMessageActionType = {
+//     type: "NEW-MESSAGE-TEXT",
+//     newText: string}
+// export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+// export type ChangeNewTextActionType = ReturnType<typeof newTextChangeHandleActionCreator>
+// export type AddMessageActionType =ReturnType<typeof sendMessageActionCreator>
+// export type NewMessageActionType = ReturnType<typeof newTextChangeHandlerActionCreator>
 
+export type ActionTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof newTextChangeHandleActionCreator> |
+    ReturnType<typeof sendMessageActionCreator> |
+    ReturnType<typeof newTextChangeHandlerActionCreator>
+
+export const addPostActionCreator = (postText: string) => {
+    return {
+        type: 'ADD-POST' as const,
+        postText: postText
+    }
+}
+export const newTextChangeHandleActionCreator = (newText: string) => {
+    return {
+        type: "CHANGE-NEW-TEXT",//либо тут написать
+        newText: newText
+    } as const //либо можно тут написать
+}
+export const sendMessageActionCreator = (messageText: string) => {
+    return {
+        type: "ADD-MESSAGE" as const,
+        messageText: messageText
+    }
+}
+export const newTextChangeHandlerActionCreator = (newText: string) => {
+    return {
+        type: "NEW-MESSAGE-TEXT" as const,
+        newText: newText
+    }
+}
 
 export let store: StoreType = {
     _state: {
@@ -137,7 +168,7 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type=== "ADD-POST") {
+        if (action.type === "ADD-POST") {
             const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: action.postText,
@@ -158,7 +189,7 @@ export let store: StoreType = {
             this._state.dialogsPage.messages.push(newMessage);
             this._state.dialogsPage.messageForNewMessage = '';
             this.rerenderTree(store._state)
-        } else if (action.type === "NEW-MESSAGE") {
+        } else if (action.type === "NEW-MESSAGE-TEXT") {
             this._state.dialogsPage.messageForNewMessage = action.newText;
             this.rerenderTree(store._state)
         }

@@ -2,7 +2,13 @@ import React, {ChangeEvent} from "react";
 import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
-import {ActionTypes, DialogsPageType, DialogsType, MessagesType} from "../../redux/state";
+import {
+    ActionTypes,
+    DialogsPageType,
+    DialogsType,
+    MessagesType,
+    newTextChangeHandlerActionCreator
+} from "../../redux/state";
 
 
 export type DialogsPropsType = {
@@ -26,7 +32,7 @@ export function Dialogs(props: DialogsPropsType) {
     }
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // props.changeNewMessageCallback(e.currentTarget.value);
-        props.dispatch({type: "NEW-MESSAGE", newText: props.message})
+        props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
     }
 
     return (

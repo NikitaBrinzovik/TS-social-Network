@@ -2,11 +2,7 @@ import React from 'react'
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {
-    ActionTypes, AddMessageActionType, AddPostActionType, ChangeNewTextActionType, NewMessageActionType,
-    ProfilePageType,
-    RootStateType
-} from "../../redux/state";
+import {ActionTypes,ProfilePageType} from "../../redux/state";
 
 
 type ProfilePropsType = {
@@ -14,7 +10,7 @@ type ProfilePropsType = {
     // addPostCallback: (postText: string) => void
     // changeNewTextCallback: (newText: string) => void
     message: string
-    dispatch: (action:ActionTypes) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export function Profile(props: ProfilePropsType) {
