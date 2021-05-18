@@ -1,12 +1,11 @@
-import {ActionTypes, PostsType, ProfilePageType,} from "./state";
-
+import {ActionTypes, PostsType, ProfilePageType,} from "./store";
 
 
 export const addPostActionCreator = (postText: string) => {
     return {
-        type: 'ADD-POST' as const,
+        type: 'ADD-POST' ,
         postText: postText
-    }
+    } as const
 }
 export const newTextChangeHandleActionCreator = (newText: string) => {
     return {
@@ -26,12 +25,12 @@ export const profileReducer = (state:ProfilePageType, action:ActionTypes) => {
             }
             state.posts.push(newPost);
             state.newPostText = ('');
-            state.rerenderTree(state)
+            //state.rerenderTree(state)
             //break;
             return state;
         case "CHANGE-NEW-TEXT":
             state.newPostText = action.newText;
-            state.rerenderTree(state)
+            //state.rerenderTree(state)
             //break;
             return state;
         default:

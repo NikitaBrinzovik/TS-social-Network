@@ -1,7 +1,6 @@
 import s from "./Message.module.css"
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {MessagesType} from "../../../redux/state";
 
 
 

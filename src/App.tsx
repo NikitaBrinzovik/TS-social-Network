@@ -5,7 +5,7 @@ import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {ActionTypes, RootStateType, StoreType} from "./redux/state";
+import {ActionTypes, RootStateType, StoreType} from "./redux/store";
 
 export type AppPropsType = {
     // store: StoreType
