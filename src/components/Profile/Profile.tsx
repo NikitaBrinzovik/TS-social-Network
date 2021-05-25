@@ -3,6 +3,7 @@ import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ActionTypes,ProfilePageType} from "../../redux/store";
+import {MyPostsContainer} from "./MyPosts/MyPosts-Container";
 
 
 type ProfilePropsType = {
@@ -17,7 +18,10 @@ export function Profile(props: ProfilePropsType) {
     return (
         <div className={s.mainContent}>
             <ProfileInfo/>
-            <MyPosts
+            <MyPostsContainer
+
+
+
                 posts={props.profilePage.posts}
                 // addPostCallback={props.addPostCallback}
                 // changeNewTextCallback={props.changeNewTextCallback}
