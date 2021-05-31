@@ -3,13 +3,13 @@ import './App.css';
 import {Nav} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
-import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-import {ActionTypes, RootStateType, StoreType} from "./redux/store";
+import {ActionTypes, RootStateType} from "./redux/store";
+import {DialogsContainer} from "./components/Dialogs/Dialogs-Container";
 
 export type AppPropsType = {
     // store: StoreType
-    dispatch:  (action: ActionTypes) => void
+    dispatch: (action: ActionTypes) => void
     state: RootStateType
     // _state: RootStateType
     // addPostCallback: (postText: string) => void
@@ -39,7 +39,7 @@ const App: React.FC<AppPropsType> = (props) => {
                            />}/>
                 <Route path='/Dialogs'
                        render={(d) =>
-                           <Dialogs
+                           <DialogsContainer
                                dialogsPage={props.state.dialogsPage}
                                dispatch={props.dispatch}
                                // addMessageCallback={props.store.addMessage.bind(props.store)}

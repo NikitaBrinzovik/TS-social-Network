@@ -14,8 +14,6 @@ type MyPostsPropsType = {
 }
 
 
-
-
 export function MyPosts(props: MyPostsPropsType) {
 
     let post = props.posts.map(p => <Post message={p.message} id={p.id} numb={p.likes} key={p.id}/>)

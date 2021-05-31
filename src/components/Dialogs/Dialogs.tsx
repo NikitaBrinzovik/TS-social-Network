@@ -2,16 +2,17 @@ import React, {ChangeEvent} from "react";
 import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
-import {ActionTypes, DialogsPageType,} from "../../redux/store";
-import {newTextChangeHandlerActionCreator} from "../../redux/Dialogs-Reducer";
+import {DialogsPageType,} from "../../redux/store";
 
 
 export type DialogsPropsType = {
     // changeNewMessageCallback: (newText: string) => void
     // addMessageCallback: (postText: string) => void
     message: string
-    dispatch: (action: ActionTypes) => void
+    //dispatch: (action: ActionTypes) => void
     dialogsPage: DialogsPageType
+    changeNewMessageCallback: (value: string) => void
+    addMessageCallback: (value: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
@@ -21,13 +22,12 @@ export function Dialogs(props: DialogsPropsType) {
     let dialog = props.dialogsPage.dialogs.map(d => <Dialog name={d.name} id={d.id} key={d.id}/>);
 
     const sendMessage = () => {
-        // props.dispatch( addMessageCallback(props.message)
-        props.dispatch({type: "ADD-MESSAGE", messageText: props.message})
-
+        props.addMessageCallback(props.message)
+        //props.dispatch({type: "ADD-MESSAGE", messageText: props.message})
     }
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.changeNewMessageCallback(e.currentTarget.value);
-        props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
+        props.changeNewMessageCallback(e.currentTarget.value);
+        //props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
     }
 
     return (
