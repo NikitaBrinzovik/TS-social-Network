@@ -57,7 +57,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         newPostText: state.profilePage.newPostText
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addPostCallback: (message: string) => {
             dispatch(addPostActionCreator(message))

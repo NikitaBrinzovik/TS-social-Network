@@ -1,10 +1,7 @@
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-
 import React, {ChangeEvent} from "react";
-import {PostsType} from "../../../redux/Profile-Reducer";
 import {MyPostsPropsType} from "./MyPosts-Container";
-
 
 // type MyPostsPropsType = {
 //     //addPostCallback: (postText: string) => void

@@ -15,7 +15,7 @@ export type ProfilePageType = {
 
 export const addPostActionCreator = (postText: string) => {
     return {
-        type: 'ADD-POST' ,
+        type: 'ADD-POST',
         postText: postText
     } as const
 }
@@ -35,7 +35,7 @@ const initialProfileState = {
         {message: 'Hey-Hoy', likes: 5, id: 2}
     ] as Array<PostsType>
 }
-export const profileReducer = (state:ProfilePageType = initialProfileState, action:ActionTypes):ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialProfileState, action: ActionTypes): ProfilePageType => {
 
     switch (action.type) {
         case "ADD-POST":

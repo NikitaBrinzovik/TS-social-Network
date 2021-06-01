@@ -40,17 +40,17 @@ type MapStateToPropsType = {
     dialogsPage: DialogsPageType
     messages: Array<MessagesType>
 }
-let mapStateToProps = (state:AppStateType): MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
         messages: state.dialogsPage.messages
     }
 }
 
-let mapDispatchToProps = (dispatch:Dispatch) => {
+let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addMessageCallback: (message:string) => {
-            dispatch({type: "ADD-MESSAGE", messageText:message})
+        addMessageCallback: (message: string) => {
+            dispatch({type: "ADD-MESSAGE", messageText: message})
         },
         changeNewMessageCallback: (value: string) => {
             dispatch(newTextChangeHandlerActionCreator(value))
