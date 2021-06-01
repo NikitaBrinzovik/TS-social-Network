@@ -44,25 +44,31 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
                 message: action.postText,
                 likes: 0,
             }
-            let stateCopy = {...state};
+            // let stateCopy = {...state, posts: [...state.posts, newPost]};
+            // stateCopy.newPostText = ('');
 
             //state.posts.push(newPost);
-            stateCopy.posts = [...state.posts];
-            stateCopy.posts.push(newPost)
+            //stateCopy.posts.push(newPost)
             //state.newPostText = ('');
-            stateCopy.newPostText = ('');
-
             //state.rerenderTree(state)
             //break;
-            return stateCopy;
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ('')
+            };
         }
         case "CHANGE-NEW-TEXT": {
-            let stateCopy = {...state};
+            /*let stateCopy = {...state};
+            stateCopy.newPostText = action.newText;*/
+
             //state.newPostText = action.newText;
-            stateCopy.newPostText = action.newText;
             //state.rerenderTree(state)
             //break;
-            return stateCopy;
+            return {
+                ...state,
+                newPostText: action.newText
+            };
         }
         default:
             return state;

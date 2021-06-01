@@ -56,7 +56,7 @@ const initialDialogsPage = {
     ] as Array<DialogsType>,
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, action: ActionTypes):DialogsPageType => {
+export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, action: ActionTypes): DialogsPageType => {
 
     switch (action.type) {
         case "ADD-MESSAGE": {
@@ -65,21 +65,30 @@ export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, acti
                 message: action.messageText,
                 name: "New",
             }
-            let stateCopy = {...state}
+            //let stateCopy = {...state, messages: [...state.messages, newMessage]}
+            //stateCopy.messages.push(newMessage);
+            //stateCopy.newMessageText = '';
+
             //state.messages.push(newMessage);
-            stateCopy.messages = [...state.messages];
-            stateCopy.messages.push(newMessage);
             //state.newMessageText = '';
-            stateCopy.newMessageText = '';
             // state.rerenderTree(state)
-            return stateCopy;
+
+            return {
+                ...state,
+                newMessageText: '',
+                messages: [...state.messages, newMessage],
+            };
         }
         case "NEW-MESSAGE-TEXT": {
-            let stateCopy = {...state}
+            //let stateCopy = {...state}
+            //stateCopy.newMessageText = action.newText;
+
             //state.newMessageText = action.newText;
-            stateCopy.newMessageText = action.newText;
             // state.rerenderTree(state)
-            return stateCopy;
+            return {
+                ...state,
+                newMessageText: action.newText
+            };
         }
         default:
             return state;
