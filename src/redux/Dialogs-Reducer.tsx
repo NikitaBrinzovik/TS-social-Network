@@ -59,20 +59,28 @@ const initialDialogsPage = {
 export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, action: ActionTypes):DialogsPageType => {
 
     switch (action.type) {
-        case "ADD-MESSAGE":
+        case "ADD-MESSAGE": {
             const newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: action.messageText,
                 name: "New",
             }
-            state.messages.push(newMessage);
-            state.newMessageText = '';
+            let stateCopy = {...state}
+            //state.messages.push(newMessage);
+            stateCopy.messages = [...state.messages];
+            stateCopy.messages.push(newMessage);
+            //state.newMessageText = '';
+            stateCopy.newMessageText = '';
             // state.rerenderTree(state)
-            return state;
-        case "NEW-MESSAGE-TEXT":
-            state.newMessageText = action.newText;
+            return stateCopy;
+        }
+        case "NEW-MESSAGE-TEXT": {
+            let stateCopy = {...state}
+            //state.newMessageText = action.newText;
+            stateCopy.newMessageText = action.newText;
             // state.rerenderTree(state)
-            return state;
+            return stateCopy;
+        }
         default:
             return state;
     }

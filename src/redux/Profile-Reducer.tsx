@@ -38,22 +38,32 @@ const initialProfileState = {
 export const profileReducer = (state: ProfilePageType = initialProfileState, action: ActionTypes): ProfilePageType => {
 
     switch (action.type) {
-        case "ADD-POST":
+        case "ADD-POST": {
             const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: action.postText,
                 likes: 0,
             }
-            state.posts.push(newPost);
-            state.newPostText = ('');
+            let stateCopy = {...state};
+
+            //state.posts.push(newPost);
+            stateCopy.posts = [...state.posts];
+            stateCopy.posts.push(newPost)
+            //state.newPostText = ('');
+            stateCopy.newPostText = ('');
+
             //state.rerenderTree(state)
             //break;
-            return state;
-        case "CHANGE-NEW-TEXT":
-            state.newPostText = action.newText;
+            return stateCopy;
+        }
+        case "CHANGE-NEW-TEXT": {
+            let stateCopy = {...state};
+            //state.newPostText = action.newText;
+            stateCopy.newPostText = action.newText;
             //state.rerenderTree(state)
             //break;
-            return state;
+            return stateCopy;
+        }
         default:
             return state;
     }
