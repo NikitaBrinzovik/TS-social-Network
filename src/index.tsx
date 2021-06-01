@@ -5,6 +5,7 @@ import {store} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+import {Provider} from "react-redux";
 
 
 export type RerenderEntireTreeType = {}
@@ -12,16 +13,19 @@ export const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App
-                    // store={store}
-                    state={store.getState()}
-                    dispatch={store.dispatch.bind(store)}
-                    // _state={store._state}
-                    // addPostCallback={store.addPost}
-                    // changeNewTextCallback={store.changeNewText}
-                    // changeNewMessageCallback={store.newMessage}
-                    // addMessageCallback={store.addMessage}
-                />
+                <Provider store={store}>
+                    <App
+                        // store={store}
+                        state={store.getState()}
+                        dispatch={store.dispatch.bind(store)}
+                        // _state={store._state}
+                        // addPostCallback={store.addPost}
+                        // changeNewTextCallback={store.changeNewText}
+                        // changeNewMessageCallback={store.newMessage}
+                        // addMessageCallback={store.addMessage}
+                    />
+                </Provider>
+
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

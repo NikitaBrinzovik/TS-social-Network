@@ -1,31 +1,41 @@
-import {addPostActionCreator, newTextChangeHandleActionCreator, profileReducer} from "./Profile-Reducer";
-import {dialogsReducer, newTextChangeHandlerActionCreator, sendMessageActionCreator} from "./Dialogs-Reducer";
+import {
+    addPostActionCreator,
+    newTextChangeHandleActionCreator,
+    ProfilePageType,
+    profileReducer
+} from "./Profile-Reducer";
+import {
+    DialogsPageType,
+    dialogsReducer,
+    newTextChangeHandlerActionCreator,
+    sendMessageActionCreator
+} from "./Dialogs-Reducer";
 import {sidebarReducer} from "./Sidebar-Reducer";
 
-export type MessagesType = {
-    name: string
-    message: string
-    id: number
-}
-export type DialogsType = {
-    id: number
-    name: string
-}
-export type DialogsPageType = {
-    newMessageText: string
-    messages: Array<MessagesType>
-    dialogs: Array<DialogsType>
-}
+// type MessagesType = {
+//     name: string
+//     message: string
+//     id: number
+// }
+// type DialogsType = {
+//     id: number
+//     name: string
+// }
+// type DialogsPageType = {
+//     newMessageText: string
+//     messages: Array<MessagesType>
+//     dialogs: Array<DialogsType>
+// }
 
-export type PostsType = {
-    message: string
-    likes: number
-    id: number
-}
-export type ProfilePageType = {
-    newPostText: string
-    posts: Array<PostsType>
-}
+// type PostsType = {
+//     message: string
+//     likes: number
+//     id: number
+// }
+// type ProfilePageType = {
+//     newPostText: string
+//     posts: Array<PostsType>
+// }
 
 export type SidebarType = {}
 export type RootStateType = {

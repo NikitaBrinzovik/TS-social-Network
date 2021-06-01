@@ -1,20 +1,37 @@
-import {ActionTypes, DialogsPageType, MessagesType} from "./store";
+import {ActionTypes} from "./store";
 
 
 export type DialogsReducerType = ReturnType<typeof dialogsReducer>
 
+export type MessagesType = {
+    name: string
+    message: string
+    id: number
+}
+export type DialogsType = {
+    id: number
+    name: string
+}
+export type DialogsPageType = {
+    newMessageText: string
+    messages: Array<MessagesType>
+    dialogs: Array<DialogsType>
+}
+//альтернативная запись в одну строчку:
+export type InitialDialogsPageType = typeof initialDialogsPage
+
 
 export const sendMessageActionCreator = (messageText: string) => {
     return {
-        type: "ADD-MESSAGE" ,
+        type: "ADD-MESSAGE",
         messageText: messageText
-    }as const
+    } as const
 }
 export const newTextChangeHandlerActionCreator = (newText: string) => {
     return {
-        type: "NEW-MESSAGE-TEXT" ,
+        type: "NEW-MESSAGE-TEXT",
         newText: newText
-    }as const
+    } as const
 }
 
 const initialDialogsPage = {
@@ -26,7 +43,8 @@ const initialDialogsPage = {
         {name: "Ivan", message: "go! Yes, lets go to kill a good people, comrrrrade!", id: 4},
         {name: "Roma", message: "Oh no!", id: 5},
         {name: "Volodzzzia", message: "Oh Yes!", id: 6},
-        {name: "Ilya", message: "Oh Yes!", id: 7},],
+        {name: "Ilya", message: "Oh Yes!", id: 7},
+    ] as Array<MessagesType>,
     dialogs: [
         {name: "Nikita", id: 1},
         {name: "Jora", id: 2},
@@ -35,10 +53,10 @@ const initialDialogsPage = {
         {name: "Roma", id: 5},
         {name: "Volodzzzia", id: 6},
         {name: "Ilya", id: 7},
-    ],
+    ] as Array<DialogsType>,
 }
 
-export const dialogsReducer = (state:DialogsPageType = initialDialogsPage, action:ActionTypes) => {
+export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, action: ActionTypes):DialogsPageType => {
 
     switch (action.type) {
         case "ADD-MESSAGE":

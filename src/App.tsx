@@ -5,7 +5,7 @@ import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import {ActionTypes, RootStateType} from "./redux/store";
-import {DialogsContainer} from "./components/Dialogs/Dialogs-Container";
+import {SuperDialogsContainer} from "./components/Dialogs/Dialogs-Container";
 
 export type AppPropsType = {
     // store: StoreType
@@ -31,20 +31,22 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route path='/Profile'
                        render={(m) =>
                            <Profile
-                               dispatch={props.dispatch}
-                               profilePage={props.state.profilePage}
+                               //state={props.state}
+                               //dispatch={props.dispatch}
+                               //profilePage={props.state.profilePage}
                                // addPostCallback={props.store.addPost.bind(props.store)}
                                // changeNewTextCallback={props.store.changeNewText.bind(props.store)}
-                               message={props.state.profilePage.newPostText}
+                               //message={props.state.profilePage.newPostText}
                            />}/>
                 <Route path='/Dialogs'
                        render={(d) =>
-                           <DialogsContainer
-                               dialogsPage={props.state.dialogsPage}
-                               dispatch={props.dispatch}
+                           <SuperDialogsContainer
+
+                               // dialogsPage={props.state.dialogsPage}
+                               // dispatch={props.dispatch}
                                // addMessageCallback={props.store.addMessage.bind(props.store)}
                                // changeNewMessageCallback={props.store.newMessage.bind(props.store)}
-                               message={props.state.dialogsPage.newMessageText}
+                               // message={props.state.dialogsPage.newMessageText}
                            />}/>
             </div>
 
