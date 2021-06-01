@@ -7,36 +7,17 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import {Provider} from "react-redux";
 
-
-// export type RerenderEntireTreeType = {}
-// export const rerenderEntireTree = () => {
-    ReactDOM.render(
-        <React.StrictMode>
-            <BrowserRouter>
-                <Provider store={store}>
-                    <App
-                        // store={store}
-                        state={store.getState()}
-                        dispatch={store.dispatch.bind(store)}
-                        // _state={store._state}
-                        // addPostCallback={store.addPost}
-                        // changeNewTextCallback={store.changeNewText}
-                        // changeNewMessageCallback={store.newMessage}
-                        // addMessageCallback={store.addMessage}
-                    />
-                </Provider>
-
-            </BrowserRouter>
-        </React.StrictMode>,
-        document.getElementById('root')
-    );
-//
-// }
-// rerenderEntireTree()
-//store.subscriber(rerenderEntireTree)//для нашего созданного редакса
-// store.subscribe(rerenderEntireTree)
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <App
+                    state={store.getState()}
+                    dispatch={store.dispatch.bind(store)}
+                />
+            </Provider>
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 reportWebVitals();

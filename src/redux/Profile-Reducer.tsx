@@ -1,7 +1,5 @@
 import {ActionTypes} from "./store";
 
-export type ProfileReducerType = ReturnType<typeof profileReducer>
-
 export type PostsType = {
     message: string
     likes: number
@@ -11,7 +9,6 @@ export type ProfilePageType = {
     newPostText: string
     posts: Array<PostsType>
 }
-
 
 export const addPostActionCreator = (postText: string) => {
     return {
@@ -26,15 +23,15 @@ export const newTextChangeHandleActionCreator = (newText: string) => {
     } as const //либо можно тут написать
 }
 
-
 const initialProfileState = {
     newPostText: "",
-
     posts: [
         {message: 'Hey-Hey', likes: 3, id: 1},
         {message: 'Hey-Hoy', likes: 5, id: 2}
     ] as Array<PostsType>
 }
+
+
 export const profileReducer = (state: ProfilePageType = initialProfileState, action: ActionTypes): ProfilePageType => {
 
     switch (action.type) {
@@ -44,32 +41,20 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
                 message: action.postText,
                 likes: 0,
             }
-            // let stateCopy = {...state, posts: [...state.posts, newPost]};
-            // stateCopy.newPostText = ('');
-
-            //state.posts.push(newPost);
-            //stateCopy.posts.push(newPost)
-            //state.newPostText = ('');
-            //state.rerenderTree(state)
-            //break;
             return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ('')
             };
         }
-        case "CHANGE-NEW-TEXT": {
-            /*let stateCopy = {...state};
-            stateCopy.newPostText = action.newText;*/
 
-            //state.newPostText = action.newText;
-            //state.rerenderTree(state)
-            //break;
+        case "CHANGE-NEW-TEXT": {
             return {
                 ...state,
                 newPostText: action.newText
             };
         }
+
         default:
             return state;
     }

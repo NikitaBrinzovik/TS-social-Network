@@ -1,6 +1,5 @@
 import {ActionTypes} from "./store";
 
-
 export type DialogsReducerType = ReturnType<typeof dialogsReducer>
 
 export type MessagesType = {
@@ -16,9 +15,7 @@ export type DialogsPageType = {
     newMessageText: string
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
-}
-//альтернативная запись в одну строчку:
-export type InitialDialogsPageType = typeof initialDialogsPage
+}//альтернативная запись в одну строчку:type InitialDialogsPageType = typeof initialDialogsPage
 
 
 export const sendMessageActionCreator = (messageText: string) => {
@@ -65,31 +62,20 @@ export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, acti
                 message: action.messageText,
                 name: "New",
             }
-            //let stateCopy = {...state, messages: [...state.messages, newMessage]}
-            //stateCopy.messages.push(newMessage);
-            //stateCopy.newMessageText = '';
-
-            //state.messages.push(newMessage);
-            //state.newMessageText = '';
-            // state.rerenderTree(state)
-
             return {
                 ...state,
                 newMessageText: '',
                 messages: [...state.messages, newMessage],
             };
         }
-        case "NEW-MESSAGE-TEXT": {
-            //let stateCopy = {...state}
-            //stateCopy.newMessageText = action.newText;
 
-            //state.newMessageText = action.newText;
-            // state.rerenderTree(state)
+        case "NEW-MESSAGE-TEXT": {
             return {
                 ...state,
                 newMessageText: action.newText
             };
         }
+
         default:
             return state;
     }
