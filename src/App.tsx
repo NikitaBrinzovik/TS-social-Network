@@ -6,7 +6,7 @@ import {Header} from "./components/Header/Header";
 import {Route} from "react-router-dom";
 import {ActionTypes, RootStateType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/Dialogs-Container";
-import { UsersContainer } from './components/Users/Users-Container';
+import UsersContainer from './components/Users/Users-Container';
 
 
 export type AppPropsType = {
@@ -33,7 +33,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 />
                 <Route
                     path='/Users'
-                    render={() => <UsersContainer />}
+                    render={() => <UsersContainer/>}
 
                 />
             </div>

@@ -68,9 +68,15 @@ export let store: StoreType = {
         sidebar: {},
     },
 
-    getState() {return this._state},
-    subscriber(observer) {this.rerenderTree = observer},
-    rerenderTree(state: RootStateType) {console.log('jjjj')},
+    getState() {
+        return this._state
+    },
+    subscriber(observer) {
+        this.rerenderTree = observer
+    },
+    rerenderTree(state: RootStateType) {
+        console.log('jjjj')
+    },
 
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
