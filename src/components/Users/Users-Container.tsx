@@ -6,7 +6,7 @@ import {followAC, setUsersAC, unfollowAC, UsersPageType, UserType} from "../../r
 
 
 type MSTPType = {
-    users: Array<UserType>
+    usersPage: Array<UserType>
 }
 type MDTPType = {
     follow: (userID: number) => void
@@ -19,7 +19,7 @@ export type UsersPropsType = MSTPType & MDTPType
 
 const mapStateToProps = (state: AppStateType): MSTPType => {
     return {
-        users: state.usersPage.users
+        usersPage: state.usersPage.users
     }
 }
 

@@ -1,22 +1,67 @@
 import React from "react";
 import styles from "./Users.module.css"
 import {UsersPropsType} from "./Users-Container";
+import axios from "axios";
 
 
 export const Users = (props: UsersPropsType) => {
+    let users = [{
+        id: 1,
+        photoUrl: "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
+        followed: true,
+        fullName: "Nikita",
+        status: "Hey",
+        location: {city: "Minsk", country: "Belarus}"}
+    }, {
+        id: 2,
+        photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
+        followed: true,
+        fullName: "Vika",
+        status: "Hoy",
+        location: {city: "Minsk", country: "Belarus}"}
+    },
+        {
+            id: 3,
+            photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
+            followed: false,
+            fullName: "Polina",
+            status: "Lets",
+            location: {city: "Minsk", country: "Belarus}"}
+        },
+        {
+            id: 4,
+            photoUrl: //"https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
+                "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
+            followed: false,
+            fullName: "Ivan",
+            status: "lets go to kill a good people",
+            location: {city: "Minsk", country: "Belarus"}
+        },
+
+    ]
+    if (props.usersPage.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers({users})
+        })
+
+    }
+
+
 
     //props.setUsers()
     return (
         <div>
             {
-                props.users.map(u => <div key={u.id}>
+                props.usersPage.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photoUrl} className={styles.userPhoto}/>
                         </div>
                         <div>
                             {u.followed === true
-                                ? <button onClick={() => {props.unfollow(u.id)}}> unfollow </button>
+                                ? <button onClick={() => {
+                                    props.unfollow(u.id)
+                                }}> unfollow </button>
                                 : <button onClick={() => props.follow(u.id)}> follow </button>
                             }
 
