@@ -30,7 +30,7 @@ export const setUsersAC = (users: UsersPageType) => {
 
 
 export const initialUsersPage = {
-    users: [] ,
+    users: [],
 }
 
 
@@ -42,6 +42,7 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
             return {
                 ...state,
                 users: state.users.map(u => {
+                    //state.users.map(u => {
                     if (u.id === action.userID) {
                         return {...u, followed: true}
                     }
@@ -52,6 +53,7 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
             return {
                 ...state,
                 users: state.users.map(u => {
+                    //state.users.map(u => {
                     if (u.id === action.userID) {
                         return {...u, followed: false}
                     }
@@ -61,7 +63,8 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
         case "SET-USERS":
             return {
                 ...state,
-                 users: [...state.users, ...action.users.users]
+                //users: [...state.users, ...action.users.users]
+                users: [...state.users, ...action.users.users]
             }
 
         default:
