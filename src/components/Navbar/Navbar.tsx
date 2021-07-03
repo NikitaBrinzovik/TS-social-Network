@@ -2,11 +2,11 @@ import s from './Nav.module.css'
 import React from "react";
 import { NavLink } from 'react-router-dom';
 
-type NavPropsType = {
+/*type NavPropsType = {
     // navLink: any
-}
+}*/
 
-export function Nav(props: NavPropsType) {
+export function Nav() {
 
     return (
         <nav className={s.sideBar}>
@@ -16,6 +16,9 @@ export function Nav(props: NavPropsType) {
             </div>
             <div className={s.item}>
                 <NavLink to={'/Dialogs'} activeClassName={s.activeLink}>Messages</NavLink>
+            </div>
+            <div className={s.item}>
+                <NavLink to={'/Users'} activeClassName={s.activeLink}>Users</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to={'/MyPhoto'} activeClassName={s.activeLink}>My photo</NavLink>
