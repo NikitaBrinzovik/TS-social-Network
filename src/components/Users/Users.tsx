@@ -10,14 +10,15 @@ export type GetStateType = {
 }
 
 export class Users extends React.Component<UsersPropsType> {
-    constructor(props: UsersPropsType) {
+    /*constructor(props: UsersPropsType) {
         super(props);
+        //если тут только super-можно удалить, так как это по умолчанию происходит
+    }*/
+    componentDidMount() {
         axios.get<GetStateType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             this.props.setUsers(response.data.items)
         })
     }
-
-    //getUsers = () => {}
 
     render () {
         return (
