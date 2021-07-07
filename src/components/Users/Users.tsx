@@ -20,7 +20,7 @@ export class Users extends React.Component<UsersPropsType> {
         })
     }
 
-    render () {
+    render() {
         return (
             <div>
                 {/*<button onClick={this.getUsers}>Get users</button>*/}
