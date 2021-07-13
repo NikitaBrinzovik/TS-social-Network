@@ -17,9 +17,9 @@ export type UserType = {
 }
 export type UsersPageType = {
     users: Array<UserType>
-    pageSize?: number  | undefined
-    totalUsersCount?: number  | undefined
-    currentPage?:number  | undefined
+    pageSize?: number | undefined
+    totalUsersCount?: number | undefined
+    currentPage?: number | undefined
 }
 
 export type FollowACType = ReturnType<typeof followAC>
@@ -41,14 +41,14 @@ export const setCurrentPageAC = (currentPage: number) => {
     return {type: "SET-CURRENT-PAGE", currentPage} as const
 }
 export const setTotalUsersCountAC = (totalUsersCount: number) => {
-    return {type: "TOTAL-USERS-COUNT",  count:totalUsersCount} as const
+    return {type: "TOTAL-USERS-COUNT", count: totalUsersCount} as const
 }
 
 
 export const initialUsersPage = {
     users: [],
     pageSize: 5,
-    totalUsersCount:0,
+    totalUsersCount: 0,
     currentPage: 1,
 }
 

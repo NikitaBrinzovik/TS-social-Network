@@ -15,12 +15,12 @@ import {UsersFC} from "./UsersFC";
 
 export type GetStateType = {
     items: Array<UserType>
-    totalCount:number
+    totalCount: number
 }
 
-type MSTPType =  {
+type MSTPType = {
     usersPage: Array<UserType>
-    pageSize:number
+    pageSize: number
     tottalUsersCount: number
     currentPage: number
 
@@ -55,11 +55,12 @@ class UsersContainer extends React.Component<UsersPropsType> {
             })
 
     }
+
     render() {
         return <UsersFC
-            tottalUsersCount ={this.props.tottalUsersCount}
-            pageSize ={this.props.pageSize}
-            currentPage ={this.props.currentPage}
+            tottalUsersCount={this.props.tottalUsersCount}
+            pageSize={this.props.pageSize}
+            currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
             usersPage={this.props.usersPage}
             follow={this.props.follow}
