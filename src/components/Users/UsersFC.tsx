@@ -1,100 +1,36 @@
 import React from "react";
 import {UsersPropsType} from "./Users-Container";
 import axios from "axios";
-// import userPhoto from "../../assets/images/default-samurai.png";
+import styles from "./Users.module.css";
+import userPhoto from "../../assets/images/default-samurai.png";
 
 
-export const Users = (props: UsersPropsType) => {
-    /*let users = [{
-        id: 1,
-        photoUrl: "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
-        followed: true,
-        fullName: "Nikita",
-        status: "Hey",
-        location: {city: "Minsk", country: "Belarus}"}
-    }, {
-        id: 2,
-        photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-        followed: true,
-        fullName: "Vika",
-        status: "Hoy",
-        location: {city: "Minsk", country: "Belarus}"}
-    },
-        {
-            id: 3,
-            photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-            followed: false,
-            fullName: "Polina",
-            status: "Lets",
-            location: {city: "Minsk", country: "Belarus}"}
-        },
-        {
-            id: 4,
-            photoUrl: //"https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-                "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
-            followed: false,
-            fullName: "Ivan",
-            status: "lets go to kill a good people",
-            location: {city: "Minsk", country: "Belarus"}
-        },
+export const UsersFC = (props: UsersPropsType & any) => {
 
-    ]*/
-    let getUsers = () => {
-
-
-        if (props.usersPage.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                //props.setUsers({users})
-                props.setUsers(
-                    response.data.items
-                    /*{users: [{
-                        id: 1,
-                        photoUrl: "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
-                        followed: true,
-                        fullName: "Nikita",
-                        status: "Hey",
-                        location: {city: "Minsk", country: "Belarus}"}
-                    }, {
-                    id: 2,
-                        photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-                        followed: true,
-                        fullName: "Vika",
-                        status: "Hoy",
-                        location: {city: "Minsk", country: "Belarus}"}
-                },
-                {
-                    id: 3,
-                        photoUrl: "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-                    followed: false,
-                    fullName: "Polina",
-                    status: "Lets",
-                    location: {city: "Minsk", country: "Belarus}"}
-                },
-                {
-                    id: 4,
-                        photoUrl: //"https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AALhSxg.img?h=400&w=267&m=6&q=60&o=f&l=f&x=151&y=240",
-                    "http://www.imperskiy-fund.com/images/ryadovoy-rotyu.jpg",
-                        followed: false,
-                    fullName: "Ivan",
-                    status: "lets go to kill a good people",
-                    location: {city: "Minsk", country: "Belarus"}
-                },
-
-            ]}*/)
-            })
-
-        }
+    let pagesCount = Math.ceil(props.tottalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
-    //props.setUsers()
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
+            <div>
+                {pages.map(p => {
+                    return <span className={props.currentPage === p && styles.selectedPage}
+                                 onClick={(e) => {
+                                     props.onPageChanged(p);
+                                 }}>{p}</span>
+                })}
+            </div>
+
+
             {
                 props.usersPage.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            {/*<img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto}/>*/}
+                            <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                 className={styles.userPhoto}/>
                         </div>
                         <div>
                             {u.followed === true
@@ -116,7 +52,6 @@ export const Users = (props: UsersPropsType) => {
                     </span>
                 </div>)
             }
-
         </div>
     )
 };
