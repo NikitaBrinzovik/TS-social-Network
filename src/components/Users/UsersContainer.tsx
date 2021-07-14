@@ -2,11 +2,11 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggle,
+    unfollow,
     UserType
 } from "../../redux/Users-Reducer";
 import React from "react";
@@ -88,32 +88,34 @@ const mapStateToProps = (state: AppStateType & any): MSTPType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MDTPType => {
+/*const mapDispatchToProps = (dispatch: Dispatch): MDTPType => {
     return {
-        follow: (userID: number) => {
-            dispatch(followAC(userID))
-        },
-        unfollow: (userID: number) => {
-            dispatch(unfollowAC(userID))
-        },
+        follow: (userID: number) => {dispatch(followAC(userID))},
+        unfollow: (userID: number) => {dispatch(unfollowAC(userID))},
         setUsers: (users: Array<UserType>) => {
             dispatch(setUsersAC(users))
         },
         setCurrentPage: (pageNumber: number) => {
             dispatch(setCurrentPageAC(pageNumber))
         },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
+        setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
         toggle: (isFetching) => {
             dispatch(toggleAC(isFetching))
         },
     }
-}
+}*/
 
-
-//export default connect(mapStateToProps, mapDispatchToProps)(Users)
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    //Упрощаем запись. Connect  сам вызовет АС и задиспатчит их
+    //Теперь переименовываем  АС в то-же самое, но убираем в конце "АС" и получаем еще боллее короткую запись
+    // А:A это тоже самое, что просто А
+    follow, //follow:followAC еще более полная запись: follow: (userID: number) => {dispatch(followAC(userID))},
+    unfollow,// unfollow: (userID: number) => {dispatch(unfollowAC(userID))},
+    setUsers, //follow:followAC
+    setCurrentPage,
+    setTotalUsersCount, // setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
+    toggle,
+})(UsersContainer)
 
 
 /*

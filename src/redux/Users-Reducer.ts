@@ -19,33 +19,33 @@ export type UsersPageType = {
     users: Array<UserType>
     pageSize?: number | undefined
     totalUsersCount?: number | undefined
-    currentPage?: number | undefined
+    currentPage?: number | false | undefined
     isFetching:boolean
 }
 
-export type FollowACType = ReturnType<typeof followAC>
-export type UnfollowACType = ReturnType<typeof unfollowAC>
-export type SetUsersACType = ReturnType<typeof setUsersAC>
-export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
-export type toggleACACType = ReturnType<typeof toggleAC>
+export type FollowACType = ReturnType<typeof follow>
+export type UnfollowACType = ReturnType<typeof unfollow>
+export type SetUsersACType = ReturnType<typeof setUsers>
+export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type toggleACACType = ReturnType<typeof toggle>
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return {type: "FOLLOW", userID} as const
 }
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
     return {type: "UNFOLLOW", userID} as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {type: "SET-USERS", users} as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {type: "SET-CURRENT-PAGE", currentPage} as const
 }
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
     return {type: "TOTAL-USERS-COUNT", count: totalUsersCount} as const
 }
-export const toggleAC = (isFetching: boolean) => {
+export const toggle = (isFetching: boolean) => {
     return{type: "TOGGLE_IS_FETCHING", isFetching} as const
 }
 

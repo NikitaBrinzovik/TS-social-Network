@@ -1,5 +1,5 @@
 import React from "react";
-import {UsersPropsType} from "./Users-Container";
+import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/def-samurai2.jpg";
