@@ -20,6 +20,7 @@ export type UsersPageType = {
     pageSize?: number | undefined
     totalUsersCount?: number | undefined
     currentPage?: number | undefined
+    isFetching:boolean
 }
 
 export type FollowACType = ReturnType<typeof followAC>
@@ -27,6 +28,7 @@ export type UnfollowACType = ReturnType<typeof unfollowAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
 export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+export type toggleACACType = ReturnType<typeof toggleAC>
 
 export const followAC = (userID: number) => {
     return {type: "FOLLOW", userID} as const
@@ -43,6 +45,9 @@ export const setCurrentPageAC = (currentPage: number) => {
 export const setTotalUsersCountAC = (totalUsersCount: number) => {
     return {type: "TOTAL-USERS-COUNT", count: totalUsersCount} as const
 }
+export const toggleAC = (isFetching: boolean) => {
+    return{type: "TOGGLE_IS_FETCHING", isFetching} as const
+}
 
 
 export const initialUsersPage = {
@@ -50,18 +55,21 @@ export const initialUsersPage = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: false,
 }
 
 
-export type UsersActionTypes = FollowACType |
+export type UsersActionTypes =
+    FollowACType |
     UnfollowACType |
     SetUsersACType |
     setCurrentPageACType |
-    setTotalUsersCountACType
+    setTotalUsersCountACType |
+    toggleACACType
 export const usersReducer = (state: UsersPageType = initialUsersPage, action: UsersActionTypes): UsersPageType => {
 
     switch (action.type) {
-        case "FOLLOW":
+        case "FOLLOW": // подписаться на пользователя
             return {
                 ...state,
                 users: state.users.map(u => {
@@ -93,9 +101,13 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
             return {
                 ...state, currentPage: action.currentPage
             }
-        case "TOTAL-USERS-COUNT":
+        case "TOTAL-USERS-COUNT": // общее кол-во польз-лей
             return {
                 ...state, totalUsersCount: action.count
+            }
+        case "TOGGLE_IS_FETCHING": //крутилка загрузки
+            return  {
+                ...state, isFetching: action.isFetching
             }
 
         default:

@@ -12,6 +12,7 @@ import {
 import React from "react";
 import axios from "axios";
 import {UsersFC} from "./UsersFC";
+import  preloader from "../../assets/images/Ripple-2s-200px.svg"
 
 export type GetStateType = {
     items: Array<UserType>
@@ -21,7 +22,7 @@ export type GetStateType = {
 type MSTPType = {
     usersPage: Array<UserType>
     pageSize: number
-    tottalUsersCount: number
+    totalUsersCount: number
     currentPage: number
 
 }
@@ -31,6 +32,7 @@ type MDTPType = {
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (pageNumber: number) => void
+    isFetching: (isFetching:boolean) => void
 }
 
 export type UsersPropsType = MSTPType & MDTPType
@@ -41,9 +43,11 @@ class UsersContainer extends React.Component<UsersPropsType> {
         //если тут только super-можно удалить, так как это по умолчанию происходит
     }*/
     componentDidMount() {
+        this.props.isFetching(true) //крутилка загрузки
         axios.get<GetStateType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
+            this.props.isFetching(false)
         })
     }
 
@@ -52,13 +56,16 @@ class UsersContainer extends React.Component<UsersPropsType> {
         axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
+                this.props.isFetching(false)
             })
 
     }
 
     render() {
-        return <UsersFC
-            tottalUsersCount={this.props.tottalUsersCount}
+        return <>
+            { this.props.isFetching ? <img src={preloader} /> : null}
+            <UsersFC
+            totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
@@ -66,6 +73,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
             follow={this.props.follow}
             unfollow={this.props.unfollow}
         />
+        </>
     }
 }
 
@@ -73,8 +81,9 @@ const mapStateToProps = (state: AppStateType & any): MSTPType => {
     return {
         usersPage: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
-        tottalUsersCount: state.usersPage.tottalUsersCount,
+        totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     }
 }
 

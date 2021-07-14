@@ -2,7 +2,7 @@ import React from "react";
 import {UsersPropsType} from "./Users-Container";
 import axios from "axios";
 import styles from "./Users.module.css";
-import userPhoto from "../../assets/images/default-samurai.png";
+import userPhoto from "../../assets/images/def-samurai2.jpg";
 
 
 export const UsersFC = (props: UsersPropsType & any) => {
