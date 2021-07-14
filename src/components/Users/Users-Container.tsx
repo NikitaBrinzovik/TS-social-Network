@@ -5,7 +5,7 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, toggleAC,
     unfollowAC,
     UserType
 } from "../../redux/Users-Reducer";
@@ -13,6 +13,7 @@ import React from "react";
 import axios from "axios";
 import {UsersFC} from "./UsersFC";
 import  preloader from "../../assets/images/Ripple-2s-200px.svg"
+import {Preloader} from "../common/preloader/Preloader";
 
 export type GetStateType = {
     items: Array<UserType>
@@ -24,7 +25,7 @@ type MSTPType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-
+    isFetching:boolean
 }
 type MDTPType = {
     follow: (userID: number) => void
@@ -32,7 +33,7 @@ type MDTPType = {
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (pageNumber: number) => void
-    isFetching: (isFetching:boolean) => void
+    toggle: (isFetching:boolean) => void
 }
 
 export type UsersPropsType = MSTPType & MDTPType
@@ -43,11 +44,11 @@ class UsersContainer extends React.Component<UsersPropsType> {
         //если тут только super-можно удалить, так как это по умолчанию происходит
     }*/
     componentDidMount() {
-        this.props.isFetching(true) //крутилка загрузки
+        this.props.toggle(true) //крутилка загрузки
         axios.get<GetStateType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
-            this.props.isFetching(false)
+            this.props.toggle(false)
         })
     }
 
@@ -56,14 +57,14 @@ class UsersContainer extends React.Component<UsersPropsType> {
         axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
-                this.props.isFetching(false)
+                this.props.toggle(false)
             })
 
     }
 
     render() {
         return <>
-            { this.props.isFetching ? <img src={preloader} /> : null}
+            { this.props.isFetching ? <Preloader /> : null}
             <UsersFC
             totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
@@ -103,6 +104,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPType => {
         },
         setTotalUsersCount: (totalCount: number) => {
             dispatch(setTotalUsersCountAC(totalCount))
+        },
+        toggle: (isFetching) => {
+            dispatch(toggleAC(isFetching))
         },
     }
 }
