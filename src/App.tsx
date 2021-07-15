@@ -23,7 +23,8 @@ const App: React.FC<AppPropsType> = (props) => {
             <div className='app-wrapper-content'>
 
                 <Route
-                    path='/Profile'
+                    path='/Profile/:userID?'//после двоеточ указали, что есть парамметры. консоль: path. можно ещё параметры через ещё раз двоеточие
+                    //знак ? обозначает опциональность парам-ра. если нет парм, то отобразится наш проф
                     render={(m) =>
                         <ProfileContainer/>}
                 />

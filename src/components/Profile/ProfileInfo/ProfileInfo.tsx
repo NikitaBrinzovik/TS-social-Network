@@ -9,7 +9,7 @@ type ProfileInfoPropsType = {
 
 export function ProfileInfo(props: ProfileInfoPropsType) {
 
-    if(!props.profile) { //если у нас профайл тру или undefined:
+    if(!props.profile) { //если у нас профайл false или undefined:
         return <Preloader />
     }
 
@@ -20,6 +20,7 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
             </div>
             <div className={s.profileInfoBlock}>
                <img src={props.profile.photos.large} />
+               {/*<img src={props.profile.photos.small} />*/}
             </div>
         </div>
     )
