@@ -13,7 +13,7 @@ type MSTPType = {
     login: string
 }
 
-class HeaderContainer extends React.Component<{ setAuthUsersData: (data: DataStateType) => void }, MSTPType> {
+class HeaderContainer extends React.Component<any, { setAuthUsersData: (data: DataStateType) => void }, MSTPType> { //без any не пашет
     componentDidMount() {
         axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/auth/me`,
             {
@@ -36,8 +36,8 @@ class HeaderContainer extends React.Component<{ setAuthUsersData: (data: DataSta
     }
 }
 
-const mapStateToProps = (state: MSTPType) => {
-    isAuth: state.auth.isAuth;
-    login: state.auth.login;
+const mapStateToProps = (state: MSTPType) => {//не работает- ошибки б..т!
+   /* isAuth: state.auth.isAuth;
+    login: state.auth.login;*/
 }
 export default connect(mapStateToProps, {setAuthUsersData})(HeaderContainer)

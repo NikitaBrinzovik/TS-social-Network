@@ -45,7 +45,10 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }*/
     componentDidMount() {
         this.props.toggle(true) //крутилка загрузки
-        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+        })
+            .then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
             this.props.toggle(false)
@@ -56,7 +59,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
         this.props.toggle(true)
         this.props.setCurrentPage(pageNumber);
-        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+        })
             //axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?`)
             .then(response => {
                 this.props.setUsers(response.data.items)
