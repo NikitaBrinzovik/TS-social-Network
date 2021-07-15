@@ -1,6 +1,5 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {
     follow,
     setCurrentPage,
@@ -10,10 +9,9 @@ import {
     UserType
 } from "../../redux/Users-Reducer";
 import React from "react";
-import axios from "axios";
 import {UsersFC} from "./UsersFC";
-import preloader from "../../assets/images/Ripple-2s-200px.svg"
 import {Preloader} from "../common/preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 export type GetStateType = {
     items: Array<UserType>
@@ -45,12 +43,15 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }*/
     componentDidMount() {
         this.props.toggle(true) //крутилка загрузки
-        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?=${this.props.currentPage}&count=${this.props.pageSize}`, {
+
+
+        /*axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?=${this.props.currentPage}&count=${this.props.pageSize}`, {
             withCredentials: true,
-        })
-            .then(response => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
+        })//Перенесли логику в API
+*/
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
             this.props.toggle(false)
         })
     }
@@ -59,19 +60,20 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
         this.props.toggle(true)
         this.props.setCurrentPage(pageNumber);
-        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+
+        /*axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
             withCredentials: true,
         })
-            //axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
+            */
+        usersAPI.getUsers(pageNumber, this.props.pageSize) //не знаю, что делать с этой ошибкой
+            .then(data => {
+                this.props.setUsers(data.items)
                 this.props.toggle(false)
             })
 
     }
 
     render() {
-        // debugger
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <UsersFC
@@ -97,22 +99,6 @@ const mapStateToProps = (state: AppStateType & any): MSTPType => {
     }
 }
 
-/*const mapDispatchToProps = (dispatch: Dispatch): MDTPType => {
-    return {
-        follow: (userID: number) => {dispatch(followAC(userID))},
-        unfollow: (userID: number) => {dispatch(unfollowAC(userID))},
-        setUsers: (users: Array<UserType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
-        toggle: (isFetching) => {
-            dispatch(toggleAC(isFetching))
-        },
-    }
-}*/
 
 export default connect(mapStateToProps, {
     //Упрощаем запись. Connect  сам вызовет АС и задиспатчит их
@@ -126,12 +112,3 @@ export default connect(mapStateToProps, {
     toggle,
 })(UsersContainer)
 
-
-/*
-type UsersType = {}
-
-export const UsersContainer = () => {
-    return (
-        <Users/>
-        )
-}*/
