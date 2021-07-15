@@ -1,0 +1,43 @@
+import React from "react";
+import {Header} from "./Header";
+import axios from "axios";
+import {DataStateType, setAuthUsersData} from "../../redux/auth-reducer";
+import {connect} from "react-redux";
+
+type GetStateType = {
+    data: DataStateType
+    resultCode: number
+}
+type MSTPType = {
+    isAuth: boolean
+    login: string
+}
+
+class HeaderContainer extends React.Component<{ setAuthUsersData: (data: DataStateType) => void }, MSTPType> {
+    componentDidMount() {
+        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/auth/me`,
+            {
+                withCredentials: true //разрешить кроссплатформенные запрорсы
+            }).then(response => {
+            if (response.data.resultCode === 0) { //только если прошли проверку
+                let {id, login, email} = response.data.data;
+                //this.props.setAuthUsersData(response.data.data.login);//одна дата- из axios,  вторая из бека(документация-логин, имаил, юзерID
+                this.props.setAuthUsersData({id, login, email});
+            }
+        })
+    }
+
+    render() {
+        return <Header
+            //{...this.props}
+            isAuth={this.props.isAuth}
+            login={this.props.login}
+        />;
+    }
+}
+
+const mapStateToProps = (state: MSTPType) => {
+    isAuth: state.auth.isAuth;
+    login: state.auth.login;
+}
+export default connect(mapStateToProps, {setAuthUsersData})(HeaderContainer)

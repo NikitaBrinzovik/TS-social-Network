@@ -53,7 +53,7 @@ export const toggle = (isFetching: boolean) => {
 export const initialUsersPage = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 0,
+    totalUsersCount: 10,
     currentPage: 1,
     isFetching: false,
 }

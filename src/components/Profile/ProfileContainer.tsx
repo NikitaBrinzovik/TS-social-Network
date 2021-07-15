@@ -4,9 +4,22 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {GetStateType} from "../Users/UsersContainer";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/Profile-Reducer";
-import { withRouter } from 'react-router-dom';
+import {ProfileType, setUserProfile} from "../../redux/Profile-Reducer";
+import {RouteComponentProps, withRouter } from 'react-router-dom';
+import {RootStateType} from "../../redux/store";
 
+
+type PathParamsType = {
+    userID: string
+}
+type MSTPType = {
+    profile: ProfileType | undefined
+}
+type MDTPType = {
+    setUserProfile: (profile:ProfileType) => void
+}
+type OwnPropsType = MSTPType & MDTPType
+type CommonPropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<any, any> {
 
@@ -34,7 +47,7 @@ class ProfileContainer extends React.Component<any, any> {
 
 }
 
-let mapStateToProps = (state: any) => ({
+let mapStateToProps = (state: RootStateType):MSTPType => ({
     profile: state.profilePage.profile
 })
 

@@ -66,6 +66,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     render() {
+        // debugger
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <UsersFC
@@ -114,7 +115,7 @@ export default connect(mapStateToProps, {
     // А:A это тоже самое, что просто А
     follow, //follow:followAC еще более полная запись: follow: (userID: number) => {dispatch(followAC(userID))},
     unfollow,// unfollow: (userID: number) => {dispatch(unfollowAC(userID))},
-    setUsers, //follow:followAC
+    setUsers,
     setCurrentPage,
     setTotalUsersCount, // setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
     toggle,
