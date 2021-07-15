@@ -1,14 +1,11 @@
 import {
-    addPostActionCreator,
-    newTextChangeHandleActionCreator,
     ProfilePageType,
     profileReducer
 } from "./Profile-Reducer";
 import {
+    ActionTypes,
     DialogsPageType,
     dialogsReducer,
-    newTextChangeHandlerActionCreator,
-    sendMessageActionCreator
 } from "./Dialogs-Reducer";
 import {sidebarReducer} from "./Sidebar-Reducer";
 
@@ -27,10 +24,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof newTextChangeHandleActionCreator> |
-    ReturnType<typeof sendMessageActionCreator> |
-    ReturnType<typeof newTextChangeHandlerActionCreator>
+
 
 
 export let store: StoreType = {
@@ -79,10 +73,10 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
+       /* this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this.rerenderTree(this._state)
+        this.rerenderTree(this._state)*/
     }
 
 }

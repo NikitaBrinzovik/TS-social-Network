@@ -1,13 +1,37 @@
-import {ActionTypes} from "./store";
+type ProfileActionTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof newTextChangeHandleActionCreator> |
+    ReturnType<typeof setUserProfile>
 
 export type PostsType = {
     message: string
     likes: number
     id: number
 }
+export type ProfileType = {
+    "aboutMe"?: null | string,
+    "contacts"?: {
+        "facebook": null |string,
+        "website": null | string
+        "vk": null | string
+        "twitter": null | string
+        "instagram": null | string
+        "youtube": null | string
+        "github": null | string
+        "mainLink": null | string
+    },
+    "lookingForAJob"?:  null | boolean
+    "lookingForAJobDescription"?:  null | string
+    "fullName"?:  null | string
+    "userId"?: number
+    "photos"?: {
+        "small":null | string
+        "large": null | string
+    }
+}
 export type ProfilePageType = {
     newPostText: string
     posts: Array<PostsType>
+    profile?: ProfileType
 }
 
 export const addPostActionCreator = (postText: string) => {
@@ -16,23 +40,32 @@ export const addPostActionCreator = (postText: string) => {
         postText: postText
     } as const
 }
+
 export const newTextChangeHandleActionCreator = (newText: string) => {
     return {
         type: "CHANGE-NEW-TEXT",//либо тут написать
         newText: newText
     } as const //либо можно тут написать
 }
+export const setUserProfile = (profile: ProfileType) => {
+    return {
+        type: 'SET_USER_PROFILE',
+        profile,
+    } as const
+}
 
-const initialProfileState = {
+const initialProfileState: ProfilePageType = {
+
     newPostText: "",
     posts: [
         {message: 'Hey-Hey', likes: 3, id: 1},
         {message: 'Hey-Hoy', likes: 5, id: 2}
-    ] as Array<PostsType>
+    ]
 }
 
+type ProfileReducerType = ProfilePageType | ProfileType
 
-export const profileReducer = (state: ProfilePageType = initialProfileState, action: ActionTypes): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialProfileState, action: ProfileActionTypes) :ProfilePageType  => {
 
     switch (action.type) {
         case "ADD-POST": {
@@ -55,6 +88,12 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
             };
         }
 
+        case "SET_USER_PROFILE": {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        }
         default:
             return state;
     }

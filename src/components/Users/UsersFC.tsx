@@ -1,11 +1,11 @@
 import React from "react";
 import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/def-samurai2.jpg";
+import {NavLink} from "react-router-dom";
 
 
-export const UsersFC = (props: UsersPropsType & any) => {
+export const UsersFC = (props: UsersPropsType & any): any => {
 
     let pagesCount = Math.ceil(props.tottalUsersCount / props.pageSize);
     let pages = [];
@@ -13,24 +13,30 @@ export const UsersFC = (props: UsersPropsType & any) => {
         pages.push(i);
     }
 
+
     return (
         <div>
             <div>
                 {pages.map(p => {
-                    return <span className={props.currentPage === p && styles.selectedPage}
-                                 onClick={(e) => {
-                                     props.onPageChanged(p);
-                                 }}>{p}</span>
+                    return <span
+                        className={props.currentPage === p ? styles.selectedPage : ""}
+                        onClick={(e) => {
+                            props.onPageChanged(p);
+                        }}>{p}</span>
                 })}
             </div>
 
 
             {
-                props.usersPage.map(u => <div key={u.id}>
+                props.usersPage.map((u: any) => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                 className={styles.userPhoto}/>
+
+                            <NavLink to={"/Profile" + u.id}>
+                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                     className={styles.userPhoto}/>
+                            </NavLink>
+
                         </div>
                         <div>
                             {u.followed === true

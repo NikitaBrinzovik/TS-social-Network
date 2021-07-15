@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import {Nav} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {Header} from "./components/Header/Header";
 import {Route} from "react-router-dom";
-import {ActionTypes, RootStateType} from "./redux/store";
+import { RootStateType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/Dialogs-Container";
 import UsersContainer from './components/Users/UsersContainer';
+import {ActionTypes} from "./redux/Dialogs-Reducer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 export type AppPropsType = {
@@ -24,7 +25,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route
                     path='/Profile'
                     render={(m) =>
-                        <Profile/>}
+                        <ProfileContainer/>}
                 />
                 <Route
                     path='/Dialogs'

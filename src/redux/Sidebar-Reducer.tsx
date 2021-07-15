@@ -1,4 +1,4 @@
-import {ActionTypes} from "./store";
+import {ActionTypes} from "./Dialogs-Reducer";
 
 export type SidebarReducerType = ReturnType<typeof sidebarReducer>
 

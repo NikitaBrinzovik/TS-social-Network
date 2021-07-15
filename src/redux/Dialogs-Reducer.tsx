@@ -1,5 +1,9 @@
-import {ActionTypes} from "./store";
+import {addPostActionCreator, newTextChangeHandleActionCreator} from "./Profile-Reducer";
 
+export type ActionTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof newTextChangeHandleActionCreator> |
+    ReturnType<typeof sendMessageActionCreator> |
+    ReturnType<typeof newTextChangeHandlerActionCreator>
 export type DialogsReducerType = ReturnType<typeof dialogsReducer>
 
 export type MessagesType = {

@@ -19,8 +19,8 @@ export type UsersPageType = {
     users: Array<UserType>
     pageSize?: number | undefined
     totalUsersCount?: number | undefined
-    currentPage?: number | false | undefined
-    isFetching:boolean
+    currentPage: number
+    isFetching: boolean
 }
 
 export type FollowACType = ReturnType<typeof follow>
@@ -46,7 +46,7 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
     return {type: "TOTAL-USERS-COUNT", count: totalUsersCount} as const
 }
 export const toggle = (isFetching: boolean) => {
-    return{type: "TOGGLE_IS_FETCHING", isFetching} as const
+    return {type: "TOGGLE_IS_FETCHING", isFetching} as const
 }
 
 
@@ -106,7 +106,7 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
                 ...state, totalUsersCount: action.count
             }
         case "TOGGLE_IS_FETCHING": //крутилка загрузки
-            return  {
+            return {
                 ...state, isFetching: action.isFetching
             }
 

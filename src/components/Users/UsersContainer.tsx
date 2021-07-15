@@ -12,7 +12,7 @@ import {
 import React from "react";
 import axios from "axios";
 import {UsersFC} from "./UsersFC";
-import  preloader from "../../assets/images/Ripple-2s-200px.svg"
+import preloader from "../../assets/images/Ripple-2s-200px.svg"
 import {Preloader} from "../common/preloader/Preloader";
 
 export type GetStateType = {
@@ -25,7 +25,7 @@ type MSTPType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    isFetching:boolean
+    isFetching: boolean
 }
 type MDTPType = {
     follow: (userID: number) => void
@@ -33,7 +33,7 @@ type MDTPType = {
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (pageNumber: number) => void
-    toggle: (isFetching:boolean) => void
+    toggle: (isFetching: boolean) => void
 }
 
 export type UsersPropsType = MSTPType & MDTPType
@@ -45,7 +45,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }*/
     componentDidMount() {
         this.props.toggle(true) //крутилка загрузки
-        axios.get<GetStateType>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+        axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
             this.props.toggle(false)
@@ -53,8 +53,11 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     onPageChanged = (pageNumber: number) => {
+
+        this.props.toggle(true)
         this.props.setCurrentPage(pageNumber);
         axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            //axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?`)
             .then(response => {
                 this.props.setUsers(response.data.items)
                 this.props.toggle(false)
@@ -64,16 +67,16 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     render() {
         return <>
-            { this.props.isFetching ? <Preloader /> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <UsersFC
-            totalUsersCount={this.props.totalUsersCount}
-            pageSize={this.props.pageSize}
-            currentPage={this.props.currentPage}
-            onPageChanged={this.onPageChanged}
-            usersPage={this.props.usersPage}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
-        />
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                onPageChanged={this.onPageChanged}
+                usersPage={this.props.usersPage}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+            />
         </>
     }
 }
