@@ -4,7 +4,7 @@ import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggle,
+    setUsers, toggleFollowingInProgress, toggleIsFetching,
     unfollow,
     UserType
 } from "../../redux/Users-Reducer";
@@ -24,6 +24,7 @@ type MSTPType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress:boolean
 }
 type MDTPType = {
     follow: (userID: number) => void
@@ -96,6 +97,7 @@ const mapStateToProps = (state: AppStateType & any): MSTPType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 }
 
@@ -109,6 +111,7 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount, // setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
-    toggle,
+    toggle: toggleIsFetching,
+    toggleFollowingInProgress,
 })(UsersContainer)
 
