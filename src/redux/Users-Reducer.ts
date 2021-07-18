@@ -51,7 +51,7 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
 export const toggleIsFetching = (isFetching: boolean) => {
     return {type: "TOGGLE_IS_FETCHING", isFetching} as const
 }
-export const toggleFollowingInProgress = (isFetching: boolean, userID:number) => {
+export const toggleFollowingInProgress = (isFetching: boolean, userID: number) => {
     return {type: "FOLLOWING_IN_PROGRESS", isFetching, userID} as const
 }
 

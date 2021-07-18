@@ -24,7 +24,7 @@ type MSTPType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress:boolean
+    followingInProgress: boolean
 }
 type MDTPType = {
     follow: (userID: number) => void
