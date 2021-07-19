@@ -13,7 +13,7 @@ import {UsersFC} from "./UsersFC";
 import {Preloader} from "../common/preloader/Preloader";
 import {usersAPI} from "../../api/api";
 
-export type GetStateType = {
+export type UsersFromAPIType = {
     items: Array<UserType>
     totalCount: number
 }
@@ -24,7 +24,9 @@ type MSTPType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    /*followingInProgress: (isFetching: boolean, userID: number) =>Array<number>*/
+    followingInProgress: (isFetching: boolean, userID: number) =>void
+    /*followingInProgress: any*/
 }
 type MDTPType = {
     follow: (userID: number) => void
@@ -85,12 +87,13 @@ class UsersContainer extends React.Component<UsersPropsType> {
                 usersPage={this.props.usersPage}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
+                followingInProgress={this.props.followingInProgress}
             />
         </>
     }
 }
 
-const mapStateToProps = (state: AppStateType & any): MSTPType => {
+const mapStateToProps = (state: AppStateType): MSTPType => {
     return {
         usersPage: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

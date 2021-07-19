@@ -15,14 +15,15 @@ export type UserType = {
     followed: boolean
 
 }
-export type UsersPageType = {
+export type UsersStateType = {
     users: Array<UserType>
-    pageSize?: number | undefined
-    totalUsersCount?: number | undefined
+    pageSize: number
+    totalUsersCount: number
     currentPage: number
     isFetching: boolean
     //followingInProgress: boolean
-    followingInProgress: Array<number>
+    /*followingInProgress: (isFetching: boolean, userID: number) => Array<number>*/
+    followingInProgress: any
 }
 
 export type FollowACType = ReturnType<typeof follow>
@@ -56,14 +57,14 @@ export const toggleFollowingInProgress = (isFetching: boolean, userID: number) =
 }
 
 
-export const initialUsersPage = {
+export const initialUsersPage: UsersStateType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 10,
     currentPage: 1,
     isFetching: false,
-    //followingInProgress: false
-    followingInProgress: []
+    followingInProgress: false
+    //followingInProgress: (isFetching: boolean, userID: number) =>Array<number>
 }
 
 
@@ -75,7 +76,8 @@ export type UsersActionTypes =
     setTotalUsersCountACType |
     toggleACACType |
     followingInProgressACType
-export const usersReducer = (state: UsersPageType = initialUsersPage, action: UsersActionTypes): UsersPageType => {
+
+export const usersReducer = (state: UsersStateType = initialUsersPage, action: UsersActionTypes): UsersStateType => {
 
     switch (action.type) {
         case "FOLLOW": // подписаться на пользователя
@@ -124,7 +126,7 @@ export const usersReducer = (state: UsersPageType = initialUsersPage, action: Us
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userID]
-                    : state.followingInProgress.filter(id => id != action.userID)
+                    : state.followingInProgress.filter((id: number) => id !== action.userID)
             }
 
         default:

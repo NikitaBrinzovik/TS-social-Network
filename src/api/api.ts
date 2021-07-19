@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GetStateType} from "../components/Users/UsersContainer";
+import {UsersFromAPIType} from "../components/Users/UsersContainer";
 
 /*type APIPropsType = {
     currentPage: number
@@ -15,14 +15,14 @@ const instance = axios.create({
     }
 });
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10) {
-        instance.get<GetStateType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
+    getUsers(currentPage: number = 1, pageSize: number = 10): Promise<never | UsersFromAPIType> {
+        return instance.get<UsersFromAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
             return response.data
         })
     }
 }
 export const getUsers2 = (currentPage: number = 1, pageSize: number = 10) => {
-    instance.get<GetStateType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
+    instance.get<UsersFromAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
         return response.data
     })
 }
