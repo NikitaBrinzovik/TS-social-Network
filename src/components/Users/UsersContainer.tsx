@@ -11,6 +11,7 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type MSTPType = {
@@ -49,19 +50,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         debugger
         this.props.getUsers(pageNumber, this.props.pageSize);
-        /*   this.props.toggle(true)
-           this.props.setCurrentPage(pageNumber);
-
-           /!*axios.get<GetStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-               withCredentials: true,
-           })
-               *!/
-           usersAPI.getUsers(pageNumber, this.props.pageSize)
-               .then(data => {
-                   this.props.setUsers(data.items)
-                   this.props.toggle(false)
-               })
-   */
     }
 
     render() {
@@ -75,11 +63,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
                 usersPage={this.props.usersPage}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
-
                 followingInProgress={this.props.followingInProgress}
-                //isFetching={this.props.isFetching}
-                //toggle={this.props.toggle}
-                //changeFollowingInProgress={this.props.changeFollowingInProgress}
             />
         </>
     }
@@ -100,14 +84,12 @@ const mapDispatchToProps: MDTPType = {
     follow,
     unfollow,
     setCurrentPage,
-    //setUsers,
-    //setTotalUsersCount,
     changeFollowingInProgress,//у диы toggleFollowingInProgress
     getUsers: getUsersThunkCreator,
-
 }
 
-export default connect(mapStateToProps, mapDispatchToProps
+//let WithRedirect = WithAuthRedirect(UsersContainer)
+export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps//HOC вокруг хока.......
     /*
     //Упрощаем запись. Connect  сам вызовет АС и задиспатчит их
     //Теперь переименовываем  АС в то-же самое, но убираем в конце "АС" и получаем еще боллее короткую запись
@@ -119,5 +101,5 @@ export default connect(mapStateToProps, mapDispatchToProps
     setTotalUsersCount, // setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
     toggle: toggleIsFetching,
     changeFollowingInProgress,*/
-)(UsersContainer)
+)(UsersContainer))
 
