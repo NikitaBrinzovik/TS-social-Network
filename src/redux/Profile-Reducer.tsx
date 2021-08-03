@@ -1,3 +1,4 @@
+
 type ProfileActionTypes = ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof newTextChangeHandleActionCreator> |
     ReturnType<typeof setUserProfile>

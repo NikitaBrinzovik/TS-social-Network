@@ -2,9 +2,10 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     changeFollowingInProgress,
+    follow,
     followSuccess,
     getUsersThunkCreator,
-    setCurrentPage,
+    setCurrentPage, unfollow,
     unfollowSuccess,
     UserType
 } from "../../redux/Users-Reducer";
@@ -47,6 +48,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
     }
 
     onPageChanged = (pageNumber: number) => {
+        debugger
         this.props.getUsers(pageNumber, this.props.pageSize);
         /*   this.props.toggle(true)
            this.props.setCurrentPage(pageNumber);
@@ -96,8 +98,8 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
 }
 
 const mapDispatchToProps: MDTPType = {
-    follow: followSuccess,
-    unfollow: unfollowSuccess,
+    follow,
+    unfollow,
     setCurrentPage,
     //setUsers,
     //setTotalUsersCount,

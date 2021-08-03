@@ -102,7 +102,6 @@ export const usersReducer = (state: UsersStateType = initialUsersPage, action: U
                     ? [...state.followingInProgress, action.userID]
                     : state.followingInProgress.filter((id: number) => id !== action.userID)
             }
-        //case "" //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         default:
             return state;
@@ -140,6 +139,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch<UsersActionTypes>) => {
         dispatch(toggleIsFetching(true)) //крутилка загрузки
         usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setCurrentPage(currentPage))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
             dispatch(toggleIsFetching(false))

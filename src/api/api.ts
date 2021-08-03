@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UserType} from "../redux/Users-Reducer";
+import {DataStateType} from "../redux/auth-reducer";
 
 
 const instance = axios.create({
@@ -13,17 +14,28 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10): Promise<GetUsersAPIType> {
-        return instance.get<GetUsersAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
+        return instance.get<GetUsersAPIType>(`users?page=${currentPage}&count=${pageSize}`).then(response => {
             return response.data
         })
     },
     follow(userID: number) {
-        return instance.post<FollowResponseType>(`/follow/${userID}`)
+        return instance.post<FollowResponseType>(`follow/${userID}`)
     },
     unfollow(userID: number) {
-        return instance.delete<FollowResponseType>(`/follow/${userID}`)
+        return instance.delete<FollowResponseType>(`follow/${userID}`)
     },
+    getProfile(userID:number) {
+        return instance.get<GetUsersAPIType>(`/profile` + userID)
+    }
 }
+
+export const authAPI = {
+    me() {
+        return instance.get<GetStateType>(`auth/me`)
+    }
+}
+
+
 
 export type FollowResponseType = {
     resultCode: number //(0 if operation completed successfully, other numbers - some error occurred)
@@ -36,6 +48,11 @@ export type GetUsersAPIType = {
     totalCount: number //total amount of registered users matching criteria
     error: string | null//if result can't be returned this field will contain error message
 
+}
+
+type GetStateType = {
+    data: DataStateType
+    resultCode: number
 }
 
 type UserAPIType = {//=UserType почти)
