@@ -8,6 +8,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import {ActionTypes} from "./redux/Dialogs-Reducer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import { Login } from './components/Login/Login';
 
 
 export type AppPropsType = {
@@ -36,7 +37,11 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Route
                     path='/Users'
                     render={() => <UsersContainer/>}
-
+                />
+                <Route
+                    path='/Login'
+                    render={() =>  <Login />
+                    }
                 />
             </div>
         </div>
