@@ -2,27 +2,26 @@ import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/def-samurai2.jpg";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {UserType} from "../../redux/Users-Reducer";
 
 type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    onPageChanged:(pageNumber: number) => void
+    onPageChanged: (pageNumber: number) => void
     usersPage: Array<UserType>
 
     follow: (userID: number) => void
     unfollow: (userID: number) => void
 
     followingInProgress: Array<number>
-    isFetching: boolean
-    toggle: (isFetching: boolean) => void
-    changeFollowingInProgress:(isFetching:boolean, userID:number) => void
+    //isFetching: boolean
+
+   // changeFollowingInProgress: (isFetching: boolean, userID: number) => void
 
 }
 
-export const UsersFC = (props: UsersPropsType) => {
+export const Users = (props: UsersPropsType) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     //let pagesCount = 15;
@@ -31,14 +30,15 @@ export const UsersFC = (props: UsersPropsType) => {
         pages.push(i);
     }
 
-    const followCallback = (u: UserType) => {
+/*    const followCallback = (u: UserType) => {
         props.changeFollowingInProgress(true, u.id);
-        axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+        /!*axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
             withCredentials: true,
             headers: {
                 "API-KEY": "3f338418-f98d-49bd-8d21-8909cba70bac"
             }
-        })
+        })*!/
+        usersAPI.follow(u.id)//это промис
             .then(response => {
                 if (response.data.resultCode === 0) {
                     props.follow(u.id)
@@ -47,21 +47,22 @@ export const UsersFC = (props: UsersPropsType) => {
             })
     }
     const unfollowCallback = (u: UserType) => {
-            props.changeFollowingInProgress(true, u.id);
-            axios.delete<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY": "3f338418-f98d-49bd-8d21-8909cba70bac"
-                }
-            })
-                .then(response => {
+        props.changeFollowingInProgress(true, u.id);
+        /!*axios.delete<any>(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "3f338418-f98d-49bd-8d21-8909cba70bac"
+            }
+        })*!/
+        usersAPI.unfollow(u.id)//это промис
+            .then(response => {
 
-                    if (response.data.resultCode === 0) {
-                        props.unfollow(u.id)
-                    }
-                    props.changeFollowingInProgress(false, u.id)
-                })
-    }
+                if (response.data.resultCode === 0) {
+                    props.unfollow(u.id)
+                }
+                props.changeFollowingInProgress(false, u.id)
+            })
+    }*/
 
     return (
         <div>
@@ -69,12 +70,11 @@ export const UsersFC = (props: UsersPropsType) => {
                 {pages.map(p => {
                     return <span
                         className={props.currentPage === p ? styles.selectedPage : ""}
-                        onClick={(e) => {
-                            props.onPageChanged(p);
-                        }}>{p}</span>
+                        onClick={() => {
+                            props.onPageChanged(p)
+                        }}> {p} </span>
                 })}
             </div>
-
 
             {
                 props.usersPage.map((u: UserType) => <div key={u.id}>
@@ -82,7 +82,7 @@ export const UsersFC = (props: UsersPropsType) => {
                         <div>
 
                             <NavLink to={"/Profile" + u.id}>
-                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                <img alt={'hey'} src={u.photos.small !== null ? u.photos.small : userPhoto}
                                      className={styles.userPhoto}/>
                             </NavLink>
 
@@ -90,13 +90,16 @@ export const UsersFC = (props: UsersPropsType) => {
                         <div>
                             {u.followed
                                 //? <button disabled={ props.followingInProgress} onClick={() => {
-
-
                                 ? <button disabled={props.followingInProgress.some((id: number) => id === u.id)}
-                                          onClick={()=>{unfollowCallback(u)}}> unfollow </button>
+                                          onClick={() => {
+                                              props.unfollow(u.id)
+                                          }}> unfollow </button>
+
                                 //: <button disabled={ props.followingInProgress} onClick={() => {
                                 : <button disabled={props.followingInProgress.some((id: number) => id === u.id)}
-                                          onClick={()=>{followCallback(u)}}> follow </button>
+                                          onClick={() => {
+                                              props.follow(u.id)
+                                          }}> follow </button>
                             }
 
                         </div>

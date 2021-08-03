@@ -1,10 +1,5 @@
 import axios from "axios";
-import {UsersFromAPIType} from "../components/Users/UsersContainer";
-
-/*type APIPropsType = {
-    currentPage: number
-    pageSize: number
-}*/
+import {UserType} from "../redux/Users-Reducer";
 
 
 const instance = axios.create({
@@ -14,15 +9,46 @@ const instance = axios.create({
         "API-KEY": "3f338418-f98d-49bd-8d21-8909cba70bac"
     }
 });
+
+
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10): Promise<never | UsersFromAPIType> {
-        return instance.get<UsersFromAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
+    getUsers(currentPage: number = 1, pageSize: number = 10): Promise<GetUsersAPIType> {
+        return instance.get<GetUsersAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
             return response.data
         })
+    },
+    follow(userID: number) {
+        return instance.post<FollowResponseType>(`/follow/${userID}`)
+    },
+    unfollow(userID: number) {
+        return instance.delete<FollowResponseType>(`/follow/${userID}`)
+    },
+}
+
+export type FollowResponseType = {
+    resultCode: number //(0 if operation completed successfully, other numbers - some error occurred)
+    messages: string //is empty if resultCode is 0, contains error messages if resultCode is different from 0
+    data: {}
+}
+
+export type GetUsersAPIType = {
+    items: UserType[]
+    totalCount: number //total amount of registered users matching criteria
+    error: string | null//if result can't be returned this field will contain error message
+
+}
+
+type UserAPIType = {//=UserType почти)
+    id: number
+    name: string
+    status: (string)
+    followed: boolean
+    photos: {
+        small: string | null
+        large: string | null
     }
 }
-export const getUsers2 = (currentPage: number = 1, pageSize: number = 10) => {
-    instance.get<UsersFromAPIType>(`users?=${currentPage}&count=${pageSize}`).then(response => {
-        return response.data
-    })
-}
+//export type UsersFromAPIType = {
+//     items: Array<UserType>
+//     totalCount: number
+// }
