@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 type ProfileActionTypes = ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof newTextChangeHandleActionCreator> |
@@ -35,24 +37,34 @@ export type ProfilePageType = {
     profile?: ProfileType
 }
 
+//AC
 export const addPostActionCreator = (postText: string) => {
     return {
         type: 'ADD-POST',
         postText: postText
     } as const
 }
-
 export const newTextChangeHandleActionCreator = (newText: string) => {
     return {
         type: "CHANGE-NEW-TEXT",//либо тут написать
         newText: newText
     } as const //либо можно тут написать
 }
-export const setUserProfile = (profile: ProfileType) => {
+const setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET_USER_PROFILE',
         profile,
     } as const
+}
+
+//thunkCr
+export const getUserProfile = (userID:string) => {
+    return (dispatch: Dispatch<ProfileActionTypes>) => {
+        usersAPI.getProfile(+userID).then(response => {
+            // @ts-ignore
+            dispatch(setUserProfile(response.data))
+        })
+    }
 }
 
 const initialProfileState: ProfilePageType = {

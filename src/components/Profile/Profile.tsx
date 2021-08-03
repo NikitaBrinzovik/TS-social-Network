@@ -5,7 +5,7 @@ import {SuperMyPostsContainer} from "./MyPosts/MyPosts-Container";
 import {ProfileType} from "../../redux/Profile-Reducer";
 
 type ProfilePropsType = {
-    profile: ProfileType
+    profile: ProfileType | undefined
 }
 
 export function Profile(props: ProfilePropsType) {

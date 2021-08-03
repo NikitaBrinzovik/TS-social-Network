@@ -3,10 +3,9 @@ import {AppStateType} from "../../redux/redux-store";
 import {
     changeFollowingInProgress,
     follow,
-    followSuccess,
     getUsersThunkCreator,
-    setCurrentPage, unfollow,
-    unfollowSuccess,
+    setCurrentPage,
+    unfollow,
     UserType
 } from "../../redux/Users-Reducer";
 import React from "react";

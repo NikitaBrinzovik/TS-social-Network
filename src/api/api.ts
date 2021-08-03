@@ -25,7 +25,7 @@ export const usersAPI = {
         return instance.delete<FollowResponseType>(`follow/${userID}`)
     },
     getProfile(userID:number) {
-        return instance.get<GetUsersAPIType>(`/profile` + userID)
+        return instance.get<GetUsersAPIType>(`profile/` + userID)
     }
 }
 
@@ -46,7 +46,7 @@ export type FollowResponseType = {
 export type GetUsersAPIType = {
     items: UserType[]
     totalCount: number //total amount of registered users matching criteria
-    error: string | null//if result can't be returned this field will contain error message
+    error: string //if result can't be returned this field will contain error message
 
 }
 
