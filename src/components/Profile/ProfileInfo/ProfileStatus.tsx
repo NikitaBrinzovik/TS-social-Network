@@ -19,7 +19,7 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
         event.target.select();
     }
 
-    switchEditMode() {
+    switchEditMode = () => {
         this.setState({
             editMode: !this.state.editMode
         })
@@ -33,7 +33,7 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
 
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.switchEditMode.bind(this)}>
+                    <span onDoubleClick={this.switchEditMode}>
                         {this.props.status}
                     </span>
                 </div>
@@ -45,7 +45,7 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
                         //onDoubleClick={this.switchEditMode.bind(this)}
                            autoFocus={true}//при активации элемента фокус внутри textarea
                            onFocus={this.handleFocus} //автовыделение содержимого инпута
-                           onBlur={this.switchEditMode.bind(this)}
+                           onBlur={this.switchEditMode}
                     />
                 </div>
                 }
