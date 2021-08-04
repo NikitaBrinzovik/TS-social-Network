@@ -6,6 +6,7 @@ import {getUserProfile, ProfileType} from "../../redux/Profile-Reducer";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {AppStateType} from "../../redux/redux-store";
 import { WithAuthRedirect } from '../../hoc/WithAuthRedirect';
+import {compose} from "redux";
 
 
 type PathParamsType = {
@@ -52,8 +53,15 @@ let mapStateToProps = (state: AppStateType): MSTPType => ({
 })
 
 //создаём свой HOC
-let AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
+/*let AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
 
 let WithURLDataContainerComponent = withRouter(AuthRedirectComponent) //добавляем к нашей контейнерной комп данные из url
 export default connect(mapStateToProps, {getUserProfile})(WithURLDataContainerComponent); //оборачиваем в ещё одну компоненту и
-//коннект делает дважды вызов: mapStateToProps и mapDispatchToProps
+//коннект делает дважды вызов: mapStateToProps и mapDispatchToProps*/
+
+//compose
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)

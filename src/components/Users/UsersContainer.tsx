@@ -12,6 +12,7 @@ import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type MSTPType = {
@@ -89,8 +90,8 @@ const mapDispatchToProps: MDTPType = {
 }
 
 //let WithRedirect = WithAuthRedirect(UsersContainer)
-export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps//HOC вокруг хока.......
-    /*
+/*export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps//HOC вокруг хока.......
+    /!*
     //Упрощаем запись. Connect  сам вызовет АС и задиспатчит их
     //Теперь переименовываем  АС в то-же самое, но убираем в конце "АС" и получаем еще боллее короткую запись
     // А:A это тоже самое, что просто А
@@ -100,6 +101,11 @@ export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps//HOC
     setCurrentPage,
     setTotalUsersCount, // setTotalUsersCount: (totalCount: number) => {dispatch(setTotalUsersCountAC(totalCount))},
     toggle: toggleIsFetching,
-    changeFollowingInProgress,*/
-)(UsersContainer))
+    changeFollowingInProgress,*!/
+)(UsersContainer))*/
+
+export default compose<React.ComponentType>(
+    WithAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps)
+)(UsersContainer)
 

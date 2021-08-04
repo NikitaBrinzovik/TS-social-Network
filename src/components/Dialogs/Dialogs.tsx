@@ -3,8 +3,6 @@ import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
 import {DialogsPageType} from "../../redux/Dialogs-Reducer";
-import { Redirect } from "react-router-dom";
-
 
 
 export type DialogsPropsType = {
@@ -14,7 +12,7 @@ export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     changeNewMessageCallback: (value: string) => void
     addMessageCallback: (value: string) => void
-    isAuth:boolean
+    isAuth: boolean
 }
 
 export function Dialogs(props: DialogsPropsType) {
@@ -32,7 +30,6 @@ export function Dialogs(props: DialogsPropsType) {
         //props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
     }
 
-    if (!props.isAuth) return <Redirect to={"/Login"}/>;//защита от незалогиненого пользователя props.isAuth === false
     return (
         <div className={s.allContent}>
             <div className={s.newMessages}>New message:</div>
