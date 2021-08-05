@@ -18,15 +18,15 @@ export const setAuthUsersData = (data: DataStateType) => {
     return {type: "SET_USERS_DATA", data} as const
 }
 //TC
-export const getAuthUsersData = () =>  (dispatch: Dispatch<AuthActionTypes>) => {
-        authAPI.me().then(response => {
-            if (response.data.resultCode === 0) { //только если прошли проверку
-                let {id, login, email} = response.data.data;
-                //this.props.setAuthUsersData(response.data.data.login);//одна дата- из axios,  вторая из бека(документация-логин, имаил, юзерID
-                dispatch(setAuthUsersData({id, login, email}));
-            }
-        })
-    }
+export const getAuthUsersData = () => (dispatch: Dispatch<AuthActionTypes>) => {
+    authAPI.me().then(response => {
+        if (response.data.resultCode === 0) { //только если прошли проверку
+            let {id, login, email} = response.data.data;
+            //this.props.setAuthUsersData(response.data.data.login);//одна дата- из axios,  вторая из бека(документация-логин, имаил, юзерID
+            dispatch(setAuthUsersData({id, login, email}));
+        }
+    })
+}
 
 
 export const authReducer = (state: AuthStateType = initialAuthState, action: AuthActionTypes): AuthStateType => {
@@ -36,7 +36,7 @@ export const authReducer = (state: AuthStateType = initialAuthState, action: Aut
             return {
                 ...state,
                 data: action.data,
-                isAuth:true
+                isAuth: true
             };
 
         default:

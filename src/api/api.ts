@@ -24,9 +24,18 @@ export const usersAPI = {
     unfollow(userID: number) {
         return instance.delete<FollowResponseType>(`follow/${userID}`)
     },
-    getProfile(userID:number) {
+}
+export const profileAPI = {
+    getProfile(userID: number) {
         return instance.get<GetUsersAPIType>(`profile/` + userID)
-    }
+    },
+
+    getStatus(userID: number) {
+        return instance.get(`profile/status/` + userID)
+    },
+    updateStatus(status: string) {
+        return instance.put<ProfileStatusType>(`profile/status/`, {status: status})
+    },
 }
 
 export const authAPI = {
@@ -35,7 +44,11 @@ export const authAPI = {
     }
 }
 
-
+export type ProfileStatusType = {
+    resultCode: number//(0 if opearation completed successfullt, other numbers - some error occured)
+    messages: Array<string>//empty if resultCode is 0, contains error messages if resultCode is not a 0
+    data: object//    some additional data
+}
 
 export type FollowResponseType = {
     resultCode: number //(0 if operation completed successfully, other numbers - some error occurred)

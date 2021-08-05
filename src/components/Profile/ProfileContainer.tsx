@@ -2,11 +2,17 @@ import React from 'react'
 import s from './Profile.module.css'
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, ProfileType} from "../../redux/Profile-Reducer";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {
+    getStatus,
+    getUserProfile,
+    ProfileActionTypes,
+    ProfileType,
+    updateStatus,
+    UST
+} from "../../redux/Profile-Reducer";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {AppStateType} from "../../redux/redux-store";
-import { WithAuthRedirect } from '../../hoc/WithAuthRedirect';
-import {compose} from "redux";
+import {compose, Dispatch} from "redux";
 
 
 type PathParamsType = {
@@ -14,11 +20,15 @@ type PathParamsType = {
 }
 type MSTPType = {
     profile?: ProfileType | undefined
+    status: string
     //isAuth: boolean
 }
 type MDTPType = {
-    getUserProfile: (userID: string) => void
-    profile: ProfileType | undefined
+    //profile: ProfileType | undefined
+
+    getUserProfile: (userID: string) => (dispatch: Dispatch<ProfileActionTypes>) => void
+    getStatus: (userID: string) => (dispatch: Dispatch<ProfileActionTypes>) => void
+    updateStatus: (status: string) => UST
 }
 type OwnPropsType = MSTPType & MDTPType
 type CommonPropsType = RouteComponentProps<PathParamsType> & OwnPropsType
@@ -27,10 +37,13 @@ class ProfileContainer extends React.Component<CommonPropsType, any> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID //задаём парам. для урла
+
         if (!userID) {
             userID = "17171";
         }
         this.props.getUserProfile(userID);
+        this.props.getStatus(userID);
+
 
     }
 
@@ -39,8 +52,13 @@ class ProfileContainer extends React.Component<CommonPropsType, any> {
 
         return (
             <div className={s.mainContent}>
-                ggggg
-                <Profile profile={this.props.profile}/>
+                Тут должен быть спан с статусом, а не эта дичь!
+                <Profile
+                    {...this.props}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateStatus={this.props.updateStatus}
+                />
             </div>
         )
     }
@@ -49,8 +67,15 @@ class ProfileContainer extends React.Component<CommonPropsType, any> {
 
 let mapStateToProps = (state: AppStateType): MSTPType => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
     //isAuth: state.auth.isAuth
 })
+
+const mapDispatchToProps: MDTPType = {
+    getUserProfile,
+    getStatus,
+    updateStatus
+}
 
 //создаём свой HOC
 /*let AuthRedirectComponent = WithAuthRedirect(ProfileContainer);
@@ -61,7 +86,7 @@ export default connect(mapStateToProps, {getUserProfile})(WithURLDataContainerCo
 
 //compose
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile}),
+    connect(mapStateToProps, mapDispatchToProps),
     withRouter,
     //WithAuthRedirect
 )(ProfileContainer)

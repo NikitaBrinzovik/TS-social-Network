@@ -7,7 +7,6 @@ import {
     DialogsPageType,
     dialogsReducer,
 } from "./Dialogs-Reducer";
-import {sidebarReducer} from "./Sidebar-Reducer";
 
 export type SidebarType = {}
 export type RootStateType = {
@@ -27,7 +26,7 @@ export type StoreType = {
 
 
 
-export let store: StoreType = {
+/*export let store: StoreType = {
     _state: {
 
         profilePage: {
@@ -73,11 +72,11 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-       /* this._state.profilePage = profileReducer(this._state.profilePage, action)
+       /!* this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this.rerenderTree(this._state)*/
+        this.rerenderTree(this._state)*!/
     }
 
-}
+}*/
 

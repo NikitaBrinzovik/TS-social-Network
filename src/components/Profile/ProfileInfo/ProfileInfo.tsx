@@ -2,17 +2,23 @@ import s from "./ProfileInfo.module.css"
 import React from "react";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
-import {ProfileType} from "../../../redux/Profile-Reducer";
+import {UST} from "../../../redux/Profile-Reducer";
 
 
 type ProfileInfoPropsType = {
-    profile: any
+    //profile: any
+    props: {
+        //profile: ProfileType | undefined
+        profile: any
+        status: string
+        updateStatus: (status: string) => UST
+    }
 }
 
 export function ProfileInfo(props: ProfileInfoPropsType) {
 
-    if(!props.profile) { //если у нас профайл false или undefined:
-        return <Preloader />
+    if (!props.props.profile) { //если у нас профайл false или undefined:
+        return <Preloader/>
     }
 
     return (
@@ -24,9 +30,9 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
 
             </div>
             <div className={s.profileInfoBlock}>
-               <img src={props.profile.photos.large} />
-               {/*<img src={props.profile.photos.small} />*/}
-                <ProfileStatus status={"Hello"} />
+                <img src={props.props.profile.photos.large}/>
+                {/*<img src={props.profile.photos.small} />*/}
+                <ProfileStatus status={props.props.status} updateStatus={props.props.updateStatus}/>
             </div>
         </div>
     )
