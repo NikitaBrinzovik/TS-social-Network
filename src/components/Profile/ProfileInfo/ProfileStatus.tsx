@@ -41,6 +41,10 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
         })
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileInfoPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        console.log('didUpdate')
+    }
+
     render() {
         return (
             <div>
