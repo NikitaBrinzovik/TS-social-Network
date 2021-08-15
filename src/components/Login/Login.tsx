@@ -11,7 +11,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={"input"} type="text" placeholder={"Login"} name={"loggin"}/>
+                <Field component={"input"} type="text" placeholder={"Login"} name={"login"}/>
             </div>
             <div>
                 <Field component={"input"} type="text" placeholder={"Password"} name={"password"}/>
@@ -25,10 +25,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </form>
     )
 }
+
 //оборачиваем в контейнерную (специальную, подобие НОС)
 const LoginReduxForm = reduxForm<FormDataType>({
     form: "login"
 })(LoginForm)
+
 //Рисуем компоненту(форму)
 export const Login = () => {
     const onSubmit = (data: FormDataType) => {

@@ -47,3 +47,4 @@ export function MyPosts(props: MyPostsPropsType) {
         </div>
     );
 }
+

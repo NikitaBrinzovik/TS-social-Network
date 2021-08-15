@@ -1,6 +1,7 @@
 import React from 'react'
 import {Likes} from './Likes/Likes';
 import s from './Post.module.css'
+import {reduxForm} from "redux-form";
 
 type PostPropsType = {
     //posts: Array<PostsType>
@@ -8,6 +9,15 @@ type PostPropsType = {
     numb: number
     id: number
 }
+
+
+
+/*
+const PostReduxForm = reduxForm<PostFormDataType>( {
+    form: "post"
+})(PostForm)
+
+*/
 
 export function Post(props: PostPropsType) {
 
@@ -22,3 +32,4 @@ export function Post(props: PostPropsType) {
         </div>
     );
 }
+
