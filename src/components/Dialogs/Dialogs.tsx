@@ -3,7 +3,7 @@ import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
 import {DialogsPageType} from "../../redux/Dialogs-Reducer";
-import reduxForm, {Field} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 
 
 export type DialogsPropsType = {
@@ -14,6 +14,7 @@ export type DialogsPropsType = {
     changeNewMessageCallback: (value: string) => void
     addMessageCallback: (value: string) => void
     isAuth: boolean
+
 }
 
 export function Dialogs(props: DialogsPropsType) {
@@ -30,11 +31,17 @@ export function Dialogs(props: DialogsPropsType) {
         props.changeNewMessageCallback(e.currentTarget.value);
         //props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
     }
+    const tutu = (props: any) => {
+        console.log(props.newMessageText)
+
+        //TypeError: Cannot read property 'newMessageText' of undefined
+        props.addMessageCallback(props.dialogsPage.newMessageText)
+    }
 
     return (
         <div className={s.allContent}>
             <div className={s.newMessages}>New message:</div>
-            <AddMessageForm/>
+            <AddMessageFormRedux onSubmit={tutu}/>
             <div className={s.friends}>
                 {dialog}
             </div>
