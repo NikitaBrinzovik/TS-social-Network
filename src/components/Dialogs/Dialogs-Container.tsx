@@ -9,13 +9,11 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 type MapStateToPropsType = {
     dialogsPage: DialogsPageType
     messages: Array<MessagesType>
-    //isAuth: boolean
 }
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
         messages: state.dialogsPage.messages,
-        //isAuth: state.auth.isAuth
     }
 }
 
@@ -24,9 +22,6 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         addMessageCallback: (message: string) => {
             dispatch({type: "ADD-MESSAGE", messageText: message})
         },
-        /*changeNewMessageCallback: (value: string) => {
-            dispatch(newTextChangeHandlerActionCreator(value))
-        }*/
     }
 }
 
@@ -35,6 +30,3 @@ export const DialogsContainer = compose<React.ComponentType>(
     WithAuthRedirect
 )(Dialogs)
 
-/*let AuthRedirectComponent = WithAuthRedirect(Dialogs);
-
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);*/

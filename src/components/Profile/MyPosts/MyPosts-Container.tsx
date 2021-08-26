@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostActionCreator,  PostsType} from "../../../redux/Profile-Reducer";
+import {addPostActionCreator, PostsType} from "../../../redux/Profile-Reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -17,6 +17,7 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         addPostCallback: (message: string) => {
             dispatch(addPostActionCreator(message))
         },
+
     }
 }
 export const SuperMyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);

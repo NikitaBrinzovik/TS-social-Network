@@ -1,11 +1,6 @@
-import {addPostActionCreator,
-    //newTextChangeHandleActionCreator
-} from "./Profile-Reducer";
+import {addPostActionCreator} from "./Profile-Reducer";
 
-export type ActionTypes = ReturnType<typeof addPostActionCreator> |
-    //ReturnType<typeof newTextChangeHandleActionCreator> |
-    ReturnType<typeof sendMessageActionCreator>
-    //ReturnType<typeof newTextChangeHandlerActionCreator>
+export type ActionTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof sendMessageActionCreator>
 export type DialogsReducerType = ReturnType<typeof dialogsReducer>
 
 export type MessagesType = {
@@ -23,19 +18,12 @@ export type DialogsPageType = {
     dialogs: Array<DialogsType>
 }//альтернативная запись в одну строчку:type InitialDialogsPageType = typeof initialDialogsPage
 
-
 export const sendMessageActionCreator = (messageText: string) => {
     return {
         type: "ADD-MESSAGE",
         messageText: messageText
     } as const
 }
-/*export const newTextChangeHandlerActionCreator = (newText: string) => {
-    return {
-        type: "NEW-MESSAGE-TEXT",
-        newText: newText
-    } as const
-}*/
 
 const initialDialogsPage = {
     newMessageText: "",
@@ -74,14 +62,6 @@ export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, acti
                 messages: [...state.messages, newMessage],
             };
         }
-
-/*        case "NEW-MESSAGE-TEXT": {
-            return {
-                ...state,
-                newMessageText: action.newText
-            };
-        }*/
-
         default:
             return state;
     }

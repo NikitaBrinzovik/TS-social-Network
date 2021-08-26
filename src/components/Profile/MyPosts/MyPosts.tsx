@@ -7,7 +7,7 @@ import {Field, reduxForm} from "redux-form";
 export function MyPosts(props: MyPostsPropsType) {
 
     let post = props.posts.map(p => <Post message={p.message} id={p.id} numb={p.likes} key={p.id}/>)
-    const addPost = (value:any) => (props.addPostCallback(value.newPostText))
+    const addPost = (value: any) => (props.addPostCallback(value.newPostText))
 
     return (
         <div className={s.postBlock}>
@@ -18,7 +18,7 @@ export function MyPosts(props: MyPostsPropsType) {
     );
 }
 
-const AddNewPostForm = (props:any) => {
+const AddNewPostForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -31,5 +31,5 @@ const AddNewPostForm = (props:any) => {
     )
 }
 
-const AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm" })(AddNewPostForm)
+const AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm)
 

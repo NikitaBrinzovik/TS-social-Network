@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
@@ -7,9 +7,6 @@ import {Field, reduxForm} from "redux-form";
 
 
 export type DialogsPropsType = {
-    // changeNewMessageCallback: (newText: string) => void
-    // addMessageCallback: (postText: string) => void
-    //dispatch: (action: ActionTypes) => void
     dialogsPage: DialogsPageType
     changeNewMessageCallback: (value: string) => void
     addMessageCallback: (value: string) => void
@@ -23,14 +20,6 @@ export function Dialogs(props: DialogsPropsType) {
                                                                key={m.id}/>);
     let dialog = props.dialogsPage.dialogs.map(d => <Dialog name={d.name} id={d.id} key={d.id}/>);
 
-  /*  const sendMessage = () => {
-        props.addMessageCallback(props.dialogsPage.newMessageText)
-        //props.dispatch({type: "ADD-MESSAGE", messageText: props.message})
-    }
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageCallback(e.currentTarget.value);
-        //props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
-    }*/
     const addNewMessage = (values: any) => {
         console.log(values.newMessageText)
         props.addMessageCallback(values.newMessageText)
@@ -57,11 +46,9 @@ const AddMessageForm = (props: any) => {
         <Field component="textarea"
                placeholder={'Enter your message'}
                name="newMessageText"
-               //value={props.dialogsPage.newMessageText}
-            //onChange={newTextChangeHandler}
         />
         <button>send</button>
     </form>)
 }
 
-const AddMessageFormRedux = reduxForm<any>({form:"AddMessageForm"})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<any>({form: "AddMessageForm"})(AddMessageForm)
