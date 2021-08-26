@@ -42,7 +42,7 @@ export function Dialogs(props: DialogsPropsType) {
     )
 }
 
-const messageMaxLength =maxLengthCreator(50)
+const messageMaxLength = maxLengthCreator(50)
 const AddMessageForm = (props: any) => {
     return (<form className={s.newMessages} onSubmit={props.handleSubmit}>
 

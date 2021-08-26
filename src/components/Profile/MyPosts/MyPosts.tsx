@@ -20,7 +20,7 @@ export function MyPosts(props: MyPostsPropsType) {
     );
 }
 
-const postMaxLength =maxLengthCreator(15)
+const postMaxLength = maxLengthCreator(15)
 const AddNewPostForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
@@ -30,7 +30,7 @@ const AddNewPostForm = (props: any) => {
                     name='newPostText'
                     component={Textarea}//моя кастомная текстаоия
                     placeholder="Write new post here"
-                validate={[requiredField, postMaxLength]}
+                    validate={[requiredField, postMaxLength]}
                 />
                 <button>add post</button>
                 <button>remove post</button>
