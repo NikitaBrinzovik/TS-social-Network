@@ -1,5 +1,5 @@
 import React from "react";
-import {DialogsPageType, MessagesType, newTextChangeHandlerActionCreator} from "../../redux/Dialogs-Reducer";
+import {DialogsPageType, MessagesType} from "../../redux/Dialogs-Reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
@@ -24,9 +24,9 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         addMessageCallback: (message: string) => {
             dispatch({type: "ADD-MESSAGE", messageText: message})
         },
-        changeNewMessageCallback: (value: string) => {
+        /*changeNewMessageCallback: (value: string) => {
             dispatch(newTextChangeHandlerActionCreator(value))
-        }
+        }*/
     }
 }
 

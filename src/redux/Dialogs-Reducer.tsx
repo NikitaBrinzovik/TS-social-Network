@@ -1,9 +1,11 @@
-import {addPostActionCreator, newTextChangeHandleActionCreator} from "./Profile-Reducer";
+import {addPostActionCreator,
+    //newTextChangeHandleActionCreator
+} from "./Profile-Reducer";
 
 export type ActionTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof newTextChangeHandleActionCreator> |
-    ReturnType<typeof sendMessageActionCreator> |
-    ReturnType<typeof newTextChangeHandlerActionCreator>
+    //ReturnType<typeof newTextChangeHandleActionCreator> |
+    ReturnType<typeof sendMessageActionCreator>
+    //ReturnType<typeof newTextChangeHandlerActionCreator>
 export type DialogsReducerType = ReturnType<typeof dialogsReducer>
 
 export type MessagesType = {
@@ -28,12 +30,12 @@ export const sendMessageActionCreator = (messageText: string) => {
         messageText: messageText
     } as const
 }
-export const newTextChangeHandlerActionCreator = (newText: string) => {
+/*export const newTextChangeHandlerActionCreator = (newText: string) => {
     return {
         type: "NEW-MESSAGE-TEXT",
         newText: newText
     } as const
-}
+}*/
 
 const initialDialogsPage = {
     newMessageText: "",
@@ -73,12 +75,12 @@ export const dialogsReducer = (state: DialogsPageType = initialDialogsPage, acti
             };
         }
 
-        case "NEW-MESSAGE-TEXT": {
+/*        case "NEW-MESSAGE-TEXT": {
             return {
                 ...state,
                 newMessageText: action.newText
             };
-        }
+        }*/
 
         default:
             return state;

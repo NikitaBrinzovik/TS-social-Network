@@ -12,7 +12,7 @@ const initialProfileState: ProfilePageType = {
 }
 
 const ADD_POST = "ADD_POST";
-const CHANGE_NEW_TEXT = "CHANGE_NEW_TEXT";
+//const CHANGE_NEW_TEXT = "CHANGE_NEW_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 
@@ -20,15 +20,15 @@ const SET_STATUS = "SET_STATUS";
 export const addPostActionCreator = (postText: string) => {
     return {
         type: "ADD_POST",
-        postText: postText
+        postText
     } as const
 }
-export const newTextChangeHandleActionCreator = (newText: string) => {
+/*export const newTextChangeHandleActionCreator = (newText: string) => {
     return {
         type: "CHANGE_NEW_TEXT",
         newText: newText
     } as const //либо можно тут написать
-}
+}*/
 const setUserProfile = (profile: ProfileType) => {
     return {
         type: "SET_USER_PROFILE",
@@ -66,7 +66,6 @@ export const updateStatus = (status: string) => {
         profileAPI.updateStatus(status).then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setStatus(status))
-                //dispatch(setStatus(res.status))
             }
         })
     }
@@ -91,13 +90,6 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
             };
         }
 
-        case CHANGE_NEW_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            };
-        }
-
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -119,7 +111,7 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
 type ProfileReducerType = ProfilePageType | ProfileType
 
 export type ProfileActionTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof newTextChangeHandleActionCreator> |
+    //ReturnType<typeof newTextChangeHandleActionCreator> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setStatus> |
     ReturnType<typeof setStatus>

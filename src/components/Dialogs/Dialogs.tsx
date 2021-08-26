@@ -23,25 +23,23 @@ export function Dialogs(props: DialogsPropsType) {
                                                                key={m.id}/>);
     let dialog = props.dialogsPage.dialogs.map(d => <Dialog name={d.name} id={d.id} key={d.id}/>);
 
-    const sendMessage = () => {
+  /*  const sendMessage = () => {
         props.addMessageCallback(props.dialogsPage.newMessageText)
         //props.dispatch({type: "ADD-MESSAGE", messageText: props.message})
     }
     const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewMessageCallback(e.currentTarget.value);
         //props.dispatch(newTextChangeHandlerActionCreator(e.currentTarget.value))
-    }
-    const tutu = (props: any) => {
-        console.log(props.newMessageText)
-
-        //TypeError: Cannot read property 'newMessageText' of undefined
-        props.addMessageCallback(props.dialogsPage.newMessageText)
+    }*/
+    const addNewMessage = (values: any) => {
+        console.log(values.newMessageText)
+        props.addMessageCallback(values.newMessageText)
     }
 
     return (
         <div className={s.allContent}>
             <div className={s.newMessages}>New message:</div>
-            <AddMessageFormRedux onSubmit={tutu}/>
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
             <div className={s.friends}>
                 {dialog}
             </div>
