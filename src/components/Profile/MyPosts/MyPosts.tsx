@@ -3,6 +3,8 @@ import {Post} from "./Post/Post";
 import React from "react";
 import {MyPostsPropsType} from "./MyPosts-Container";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, requiredField} from '../../../utils/validators';
+import {Textarea} from "../../common/FormsControls/FormsControl";
 
 export function MyPosts(props: MyPostsPropsType) {
 
@@ -12,18 +14,24 @@ export function MyPosts(props: MyPostsPropsType) {
     return (
         <div className={s.postBlock}>
             <h3>My Posts</h3>
-            <AddNewPostFormRedux onSubmit={addPost}></AddNewPostFormRedux>
+            <AddNewPostFormRedux onSubmit={addPost}/>
             {post}
         </div>
     );
 }
 
+const postMaxLength =maxLengthCreator(15)
 const AddNewPostForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
                 <h4>new post: </h4>
-                <Field name='newPostText' component="textarea" placeholder="Write new post here"/>
+                <Field
+                    name='newPostText'
+                    component={Textarea}//моя кастомная текстаоия
+                    placeholder="Write new post here"
+                validate={[requiredField, postMaxLength]}
+                />
                 <button>add post</button>
                 <button>remove post</button>
             </div>
