@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 
+
 let initialAuthState: AuthStateType = {
     resultCode: 0,
     messages: [],
@@ -13,11 +14,12 @@ let initialAuthState: AuthStateType = {
     isAuth: false
 }
 
-//AC
+//AC----------------------------------
 export const setAuthUsersData = (data: DataStateType) => {
     return {type: "SET_USERS_DATA", data} as const
 }
-//TC
+
+//TC-----------------------------------
 export const getAuthUsersData = () => (dispatch: Dispatch<AuthActionTypes>) => {
     authAPI.me().then(response => {
         if (response.data.resultCode === 0) { //только если прошли проверку
@@ -28,7 +30,23 @@ export const getAuthUsersData = () => (dispatch: Dispatch<AuthActionTypes>) => {
     })
 }
 
+//export const loginTC = (email:string, password: string, rememberMe:boolean) => (dispatch: Dispatch<AuthActionTypes>) => {
+export const loginTC = (data:DataStateType) => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
+    authAPI.login(data).then(response => {
+        if (response.data.resultCode === 0) { //только если прошли проверку
+            dispatch(getAuthUsersData())
+        }
+    })
+}
+export const logoutTC = () => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
+    authAPI.logout().then(response => {
+        if (response.data.resultCode === 0) { //только если прошли проверку
+            dispatch(getAuthUsersData())
+        }
+    })
+}
 
+//Reducer---------------------------------
 export const authReducer = (state: AuthStateType = initialAuthState, action: AuthActionTypes): AuthStateType => {
 
     switch (action.type) {
@@ -44,10 +62,12 @@ export const authReducer = (state: AuthStateType = initialAuthState, action: Aut
     }
 }
 
+//Types--------------------------------------------
 export type DataStateType = {
     id: null | number   //logged user id
     email: null | string   //logged user email
     login: null | string   //user login
+    resultCode?: number
 }
 type AuthStateType = {
     data: DataStateType //if user is authenticated then data contains all this properties
@@ -59,6 +79,7 @@ type AuthStateType = {
 }
 
 export type setUsersDataACType = ReturnType<typeof setAuthUsersData>
+export type getUsersDataACType = ReturnType<typeof getAuthUsersData>
 
 export type AuthActionTypes = setUsersDataACType
 

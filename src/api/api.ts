@@ -25,6 +25,7 @@ export const usersAPI = {
         return instance.delete<FollowResponseType>(`follow/${userID}`)
     },
 }
+
 export const profileAPI = {
     getProfile(userID: number) {
         return instance.get<GetUsersAPIType>(`profile/` + userID)
@@ -41,7 +42,13 @@ export const profileAPI = {
 export const authAPI = {
     me() {
         return instance.get<GetStateType>(`auth/me`)
-    }
+    },
+    login(data:DataStateType) {//Дима сделал изначально заглушку ремберМи = фалс
+        return instance.post<DataStateType>(`auth/login`, {data: data})
+    },
+    logout() {//Дима сделал изначально заглушку ремберМи = фалс
+        return instance.delete(`auth/login`)
+    },
 }
 
 export type ProfileStatusType = {
