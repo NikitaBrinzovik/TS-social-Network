@@ -25,13 +25,13 @@ export const getAuthUsersData = () => (dispatch: Dispatch<AuthActionTypes>) => {
         if (response.data.resultCode === 0) { //только если прошли проверку
             let {id, login, email} = response.data.data;
             //this.props.setAuthUsersData(response.data.data.login);//одна дата- из axios,  вторая из бека(документация-логин, имаил, юзерID
-            dispatch(setAuthUsersData({id, login, email}));
+            dispatch(setAuthUsersData({id, login, email, isAuth: true}));
         }
     })
 }
 
 //export const loginTC = (email:string, password: string, rememberMe:boolean) => (dispatch: Dispatch<AuthActionTypes>) => {
-export const loginTC = (data:DataStateType) => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
+export const loginTC = (data: DataStateType) => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
     authAPI.login(data).then(response => {
         if (response.data.resultCode === 0) { //только если прошли проверку
             dispatch(getAuthUsersData())
@@ -41,7 +41,7 @@ export const loginTC = (data:DataStateType) => (dispatch: Dispatch<any>) => {///
 export const logoutTC = () => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
     authAPI.logout().then(response => {
         if (response.data.resultCode === 0) { //только если прошли проверку
-            dispatch(getAuthUsersData())
+            dispatch(setAuthUsersData({id: null, email: null, login: null, isAuth: false}))
         }
     })
 }
@@ -68,6 +68,7 @@ export type DataStateType = {
     email: null | string   //logged user email
     login: null | string   //user login
     resultCode?: number
+    isAuth?: boolean
 }
 type AuthStateType = {
     data: DataStateType //if user is authenticated then data contains all this properties

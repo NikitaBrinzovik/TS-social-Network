@@ -43,7 +43,7 @@ export const authAPI = {
     me() {
         return instance.get<GetStateType>(`auth/me`)
     },
-    login(data:DataStateType) {//Дима сделал изначально заглушку ремберМи = фалс
+    login(data: DataStateType) {//Дима сделал изначально заглушку ремберМи = фалс
         return instance.post<DataStateType>(`auth/login`, {data: data})
     },
     logout() {//Дима сделал изначально заглушку ремберМи = фалс
