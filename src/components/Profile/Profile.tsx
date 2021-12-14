@@ -5,23 +5,23 @@ import {SuperMyPostsContainer} from "./MyPosts/MyPosts-Container";
 import {ProfileType, UST} from "../../redux/Profile-Reducer";
 
 type ProfilePropsType = {
-    //profile: ProfileType | undefined
-    props: {
-        profile: ProfileType | undefined
+    // props: {
+        profile: ProfileType | null | undefined
         status: string
         updateStatus: (status: string) => UST
-    }
+    // }
 }
 
-//export function Profile(props: ProfilePropsType) {
-export function Profile(props: any) {
+export function Profile(props: ProfilePropsType) {
+// export function Profile(props: any) {
 
     return (
         <div className={s.mainContent}>
             {/*<ProfileInfo profile={props.profile}/>*/}
-            <ProfileInfo props={props}/>
-            <SuperMyPostsContainer
-            />
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
+            <SuperMyPostsContainer/>
         </div>
     )
 }

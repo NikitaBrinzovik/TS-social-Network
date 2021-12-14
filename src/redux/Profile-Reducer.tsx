@@ -45,7 +45,7 @@ export const setStatus = (status: string) => {
 //thunkCr
 export const getUserProfile = (userID: string) => {
     return (dispatch: Dispatch<ProfileActionTypes>) => {
-        profileAPI.getProfile(+userID).then(response => {
+        profileAPI.getProfile(userID).then(response => {
             // @ts-ignore //что за фигня? в следущем TC я сделал туСтринг, но это же $%#^$#&&$
             //см типизацию в проф контейнере
             dispatch(setUserProfile(response.data))
@@ -55,7 +55,7 @@ export const getUserProfile = (userID: string) => {
 
 export const getStatus = (userID: string) => {
     return (dispatch: Dispatch<ProfileActionTypes>) => {
-        profileAPI.getStatus(+userID).then(res => {
+        profileAPI.getStatus(userID).then(res => {
             dispatch(setStatus(res.data))
         })
     }
@@ -108,7 +108,7 @@ export const profileReducer = (state: ProfilePageType = initialProfileState, act
 }
 
 //TYPES
-type ProfileReducerType = ProfilePageType | ProfileType
+// type ProfileReducerType = ProfilePageType | ProfileType
 
 export type ProfileActionTypes = ReturnType<typeof addPostActionCreator> |
     //ReturnType<typeof newTextChangeHandleActionCreator> |
@@ -136,10 +136,10 @@ export type ProfileType = {
     "lookingForAJob"?: null | boolean
     "lookingForAJobDescription"?: null | string
     "fullName"?: null | string
-    "userId"?: number
+    "userId"?: number | string
     "photos"?: {
-        "small": null | string
-        "large": null | string
+        "small": null | string | undefined
+        "large": null | string | undefined
     }
 }
 export type ProfilePageType = {

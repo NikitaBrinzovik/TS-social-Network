@@ -29,8 +29,6 @@ type MDTPType = {
     unfollow: (userID: number) => void
     setCurrentPage: (pageNumber: number) => void
     changeFollowingInProgress: (isFetching: boolean, userID: number) => void
-    //setUsers: (users: Array<UserType>) => void
-    //setTotalUsersCount: (pageNumber: number) => void
 
     //thunk
     getUsers: (currentPage: number, pageSize: number) => void//(currentPage:number, pageSize:number) =>GetUsersTCType
@@ -40,16 +38,11 @@ type MDTPType = {
 export type UsersPropsType = MSTPType & MDTPType
 
 class UsersContainer extends React.Component<UsersPropsType> {
-    /*constructor(props: UsersPropsType) {
-        super(props);
-        //если тут только super-можно удалить, так как это по умолчанию происходит
-    }*/
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        debugger
         this.props.getUsers(pageNumber, this.props.pageSize);
     }
 

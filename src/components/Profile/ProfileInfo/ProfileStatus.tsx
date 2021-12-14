@@ -28,6 +28,7 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
             editMode: true
         })
     }
+
     deactivatedEditMode = () => {
         this.setState({
             editMode: false
@@ -42,15 +43,11 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileInfoPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        console.log('didUpdate')
-        /*let a = this.state;
-        let b = this.props;*/
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
         }
-
     }
 
     render() {
@@ -61,7 +58,7 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
                 <div>
                     <span onDoubleClick={this.activeEditMode}>
                     {/*<span onDoubleClick={this.switchEditMode}>*/}
-                        {this.props.status || "push me"}
+                        {this.props.status || "push twice me to write your status"}
                     </span>
                 </div>
                 }
@@ -70,13 +67,11 @@ export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
                     <input
                         //onDoubleClick={this.switchEditMode}
                         //onFocus={this.handleFocus} //автовыделение содержимого инпута
-
                         onChange={this.onStatusChange}
                         type="text"
                         value={this.state.status}
                         autoFocus={true}//при активации элемента фокус внутри textarea
                         onBlur={this.deactivatedEditMode}
-
                     />
                 </div>
                 }

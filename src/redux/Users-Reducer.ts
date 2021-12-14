@@ -79,24 +79,22 @@ export const usersReducer = (state: UsersStateType = initialUsersPage, action: U
         case "SET-USERS":
             return {
                 ...state,
-                //users: [...state.users, ...action.users]
                 users: action.users
             }
         case "SET-CURRENT-PAGE":
             return {
                 ...state, currentPage: action.currentPage
             }
-        case "TOTAL-USERS-COUNT": // общее кол-во польз-лей
+        case "TOTAL-USERS-COUNT":
             return {
                 ...state, totalUsersCount: action.count
             }
-        case "TOGGLE_IS_FETCHING": //крутилка загрузки
+        case "TOGGLE_IS_FETCHING":
             return {
                 ...state, isFetching: action.isFetching
             }
         case "FOLLOWING_IN_PROGRESS":
             return {
-                //...state, followingInProgress: action.isFetching
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userID]
@@ -137,7 +135,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 
     //thunk:
     return (dispatch: Dispatch<UsersActionTypes>) => {
-        dispatch(toggleIsFetching(true)) //крутилка загрузки
+        dispatch(toggleIsFetching(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setCurrentPage(currentPage))
             dispatch(setUsers(data.items))
@@ -163,7 +161,7 @@ export const follow = (userID:number) => { //TCreator
 export const unfollow = (userID:number) => {
     return (dispatch: Dispatch<UsersActionTypes>)=>{
         dispatch(changeFollowingInProgress(true, userID));
-        usersAPI.follow(userID)//это промис
+        usersAPI.follow(userID)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(unfollowSuccess(userID))

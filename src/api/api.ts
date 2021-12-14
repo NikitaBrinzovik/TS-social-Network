@@ -27,15 +27,15 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userID: number) {
-        return instance.get<GetUsersAPIType>(`profile/` + userID)
+    getProfile(userID: string) {
+        return instance.get<GetUsersAPIType>(`profile/${userID}`)
     },
 
-    getStatus(userID: number) {
-        return instance.get(`profile/status/` + userID)
+    getStatus(userID: string) {
+        return instance.get(`profile/status/${userID}`)
     },
     updateStatus(status: string) {
-        return instance.put<ProfileStatusType>(`profile/status/`, {status: status})
+        return instance.put<ProfileStatusType>(`profile/status/`, {status})
     },
 }
 
@@ -44,7 +44,7 @@ export const authAPI = {
         return instance.get<GetStateType>(`auth/me`)
     },
     login(data: DataStateType) {//Дима сделал изначально заглушку ремберМи = фалс
-        return instance.post<DataStateType>(`auth/login`, {data: data})
+        return instance.post<DataStateType>(`auth/login`, {data})
     },
     logout() {//Дима сделал изначально заглушку ремберМи = фалс
         return instance.delete(`auth/login`)
@@ -67,7 +67,6 @@ export type GetUsersAPIType = {
     items: UserType[]
     totalCount: number //total amount of registered users matching criteria
     error: string //if result can't be returned this field will contain error message
-
 }
 
 type GetStateType = {
@@ -75,7 +74,7 @@ type GetStateType = {
     resultCode: number
 }
 
-type UserAPIType = {//=UserType почти)
+/*type UserAPIType = {//=UserType почти)
     id: number
     name: string
     status: (string)
@@ -84,8 +83,8 @@ type UserAPIType = {//=UserType почти)
         small: string | null
         large: string | null
     }
-}
-//export type UsersFromAPIType = {
-//     items: Array<UserType>
-//     totalCount: number
-// }
+}*/
+/*export type UsersFromAPIType = {
+    items: Array<UserType>
+    totalCount: number
+}*/

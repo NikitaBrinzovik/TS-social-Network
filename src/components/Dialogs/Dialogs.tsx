@@ -23,7 +23,6 @@ export function Dialogs(props: DialogsPropsType) {
     let dialog = props.dialogsPage.dialogs.map(d => <Dialog name={d.name} id={d.id} key={d.id}/>);
 
     const addNewMessage = (values: any) => {
-        console.log(values.newMessageText)
         props.addMessageCallback(values.newMessageText)
     }
 

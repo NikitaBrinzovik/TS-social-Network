@@ -31,14 +31,14 @@ export const getAuthUsersData = () => (dispatch: Dispatch<AuthActionTypes>) => {
 }
 
 //export const loginTC = (email:string, password: string, rememberMe:boolean) => (dispatch: Dispatch<AuthActionTypes>) => {
-export const loginTC = (data: DataStateType) => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
+export const loginTC = (data: DataStateType) => (dispatch: Dispatch<any>) => {
     authAPI.login(data).then(response => {
         if (response.data.resultCode === 0) { //только если прошли проверку
             dispatch(getAuthUsersData())
         }
     })
 }
-export const logoutTC = () => (dispatch: Dispatch<any>) => {////////////ANY!!!!!!!!!!!!!!
+export const logoutTC = () => (dispatch: Dispatch<any>) => {
     authAPI.logout().then(response => {
         if (response.data.resultCode === 0) { //только если прошли проверку
             dispatch(setAuthUsersData({id: null, email: null, login: null, isAuth: false}))
@@ -48,9 +48,8 @@ export const logoutTC = () => (dispatch: Dispatch<any>) => {////////////ANY!!!!!
 
 //Reducer---------------------------------
 export const authReducer = (state: AuthStateType = initialAuthState, action: AuthActionTypes): AuthStateType => {
-
     switch (action.type) {
-        case "SET_USERS_DATA": // подписаться на пользователя
+        case "SET_USERS_DATA":
             return {
                 ...state,
                 data: action.data,
@@ -64,7 +63,7 @@ export const authReducer = (state: AuthStateType = initialAuthState, action: Aut
 
 //Types--------------------------------------------
 export type DataStateType = {
-    id: null | number   //logged user id
+    id: null | number |string //logged user id
     email: null | string   //logged user email
     login: null | string   //user login
     resultCode?: number
